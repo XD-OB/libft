@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
-# include "libft.h"
+# include "ft_printf.h"
 # define BUFF_SIZE 1000
 
 typedef struct		s_mult
