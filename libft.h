@@ -6,7 +6,7 @@
 /*   By: obelouch <OB-96@hotmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 01:07:21 by obelouch          #+#    #+#             */
-/*   Updated: 2019/04/27 15:12:41 by obelouch         ###   ########.fr       */
+/*   Updated: 2019/05/03 02:36:03 by obelouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@
 # include <limits.h>
 # include "ft_printf.h"
 # define BUFF_SIZE 1000
+
+typedef struct		s_gnl
+{
+	int				fd;
+	char			*content;
+	struct s_gnl	*next;
+}					t_gnl;
 
 typedef struct		s_mult
 {
@@ -48,14 +55,14 @@ typedef struct		s_list
 }					t_list;
 
 /*
-** BTREE Functions
-*/
+ ** BTREE Functions
+ */
 
 t_bt				*bt_create_node(void *item);
 void				bt_insert_item(t_bt **root, void *item,
-								int (*cmpf)(void *, void *));
+		int (*cmpf)(void *, void *));
 t_bt				*bt_search_item(t_bt *root, void *data_ref,
-								int (*cmpf)(void *, void *));
+		int (*cmpf)(void *, void *));
 void				bt_apply_infix(t_bt *root, void (*applyf)(void *));
 void				bt_apply_revinfix(t_bt *root, void (*applyf)(void *));
 void				bt_apply_prefix(t_bt *root, void (*applyf)(void *));
