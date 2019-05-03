@@ -6,12 +6,11 @@
 /*   By: obelouch <OB-96@hotmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/17 18:19:36 by obelouch          #+#    #+#             */
-/*   Updated: 2019/05/03 02:36:45 by obelouch         ###   ########.fr       */
+/*   Updated: 2019/05/03 02:45:18 by obelouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
 
 t_gnl		*node_search(t_gnl *list, int fd)
 {
@@ -37,7 +36,7 @@ int			ft_linelen(char *str)
 	return (len);
 }
 
-int			prepare_next(t_gnl	*node)
+int			prepare_next(t_gnl *node)
 {
 	char	*tmp;
 	int		i;
@@ -63,12 +62,12 @@ void		join_content(t_gnl **node, char *buff, int size)
 	free(tmp);
 }
 
-int			get_next_line(const int fd, char** line)
+int			get_next_line(const int fd, char **line)
 {
 	char			buff[BUFF_SIZE + 1];
 	static t_gnl	*list = NULL;
 	t_gnl			*node;
-	int 			ret;
+	int				ret;
 
 	if (fd < 0 || BUFF_SIZE < 1 || !line
 			|| read(fd, buff, 0) < 0)

@@ -6,7 +6,7 @@
 /*   By: obelouch <OB-96@hotmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 01:07:21 by obelouch          #+#    #+#             */
-/*   Updated: 2019/05/03 02:36:03 by obelouch         ###   ########.fr       */
+/*   Updated: 2019/05/03 02:41:12 by obelouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ typedef struct		s_list
 }					t_list;
 
 /*
- ** BTREE Functions
- */
+** BTREE Functions
+*/
 
 t_bt				*bt_create_node(void *item);
 void				bt_insert_item(t_bt **root, void *item,
