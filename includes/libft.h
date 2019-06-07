@@ -21,7 +21,7 @@
 # define BUFF_SIZE 1000
 
 /*
-**	BINARY TREE :	-----------------------------------------------------
+**	BINARY TREE :		-----------------------------------------------------
 */
 
 t_bt				*bt_create_node(void *item);
@@ -38,7 +38,7 @@ int					bt_level_count(t_bt *root);
 void				bt_free(t_bt **root, void (*freef)(void **));
 
 /*
-**		QUEUE :		-----------------------------------------------------
+**		QUEUE :			-----------------------------------------------------
 */
 
 int					qt_enqueue(t_queue *queue, void *content, size_t size);
@@ -50,12 +50,74 @@ void				qt_print(t_queue queue, int type, int sep);
 void				qt_free(t_queue *queue);
 
 /*
-**					-----------------------------------------------------
+**		STACK :			-----------------------------------------------------
+*/
+
+void				sk_push(t_list **top, void *content, size_t size);
+void				sk_pop(t_list **top, void *item);
+int					sk_isempty(t_list *top);
+void				*sk_top(t_list *top);
+void				sk_free(t_list **head);
+
+/*
+**	LINKED LIST :		-----------------------------------------------------
+*/
+
+t_list				*ft_lstnew(void const *content, size_t content_size);
+void				ft_lstdelone(t_list **alst, void (*del)(void*, size_t));
+void				ft_lstdel(t_list **alst, void (*del)(void*, size_t));
+void				ft_lstadd(t_list **alst, t_list *new);
+void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
+t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
+void				ft_lstprint(t_list *head, int type, int sep);
+
+/*
+**	PRINT/READ:			-----------------------------------------------------
 */
 
 int					get_next_line(const int fd, char **line);
 void				ft_printhex(int n);
-int					ft_intlen(int n);
+void				ft_putchar(char c);
+void				ft_putstr(char const *s);
+void				ft_putendl(char const *s);
+void				ft_putnbr(int n);
+void				ft_putchar_fd(char c, int fd);
+void				ft_putstr_fd(char const *s, int fd);
+void				ft_putendl_fd(char const *s, int fd);
+void				ft_putnbr_fd(int n, int fd);
+
+/*
+** CONVERS INT/STR :	-----------------------------------------------------
+*/
+
+char				*ft_itoa(long long int n);
+char				*ft_ltoa(long int n);
+char				*ft_lltoa(long long int n);
+char				*ft_itoa_base(long long int val, int base);
+char				*ft_ulltoa_base(unsigned long long val, int base);
+char				*ft_utoa(size_t n);
+char				*ft_ultoa(unsigned long int n);
+char				*ft_ulltoa(unsigned long long int n);
+char				*ft_utoa_base(size_t val, int base);
+int					ft_atoibase(char *str, char *base_from);
+int					ft_atoi(const char *str);
+char				*ft_poslltoa(long long int n);
+
+/*
+**	STRING ARRAY :		-----------------------------------------------------
+*/
+
+int					len_tab(char **tab);
+void				free_tabstr(char ***tab);
+void				add_2_tab(char ***tab, char *elem);
+char				*join_from_tab(char **tab, int start, char *sep);
+char				**copy_char2(char **tab, int start);
+char				**copy_2_char(char **tab);
+
+/*
+**		MEMORY :		-----------------------------------------------------
+*/
+
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *dest, const void *src, size_t n);
@@ -65,6 +127,21 @@ void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 void				*ft_memalloc(size_t size);
 void				ft_memdel(void **ap);
+
+/*
+**						-----------------------------------------------------
+*/
+
+int					ft_intlen(int n);
+int					ft_isxdigit(int c);
+int					ft_isblank(int c);
+int					ft_isalpha(int c);
+int					ft_isdigit(int c);
+int					ft_isalnum(int c);
+int					ft_isascii(int c);
+int					ft_isprint(int c);
+int					ft_toupper(int c);
+int					ft_tolower(int c);
 char				*ft_strnew(size_t size);
 void				ft_strdel(char **as);
 void				ft_strclr(char *s);
@@ -80,23 +157,6 @@ char				*ft_strjoin(char const *s1, char const *s2);
 void				ft_trimstr(char **str);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
-char				*ft_itoa(long long int n);
-char				*ft_ltoa(long int n);
-char				*ft_lltoa(long long int n);
-char				*ft_itoa_base(long long int val, int base);
-char				*ft_ulltoa_base(unsigned long long val, int base);
-char				*ft_utoa(size_t n);
-char				*ft_ultoa(unsigned long int n);
-char				*ft_ulltoa(unsigned long long int n);
-char				*ft_utoa_base(size_t val, int base);
-void				ft_putchar(char c);
-void				ft_putstr(char const *s);
-void				ft_putendl(char const *s);
-void				ft_putnbr(int n);
-void				ft_putchar_fd(char c, int fd);
-void				ft_putstr_fd(char const *s, int fd);
-void				ft_putendl_fd(char const *s, int fd);
-void				ft_putnbr_fd(int n, int fd);
 size_t				ft_strlen(const char *str);
 char				*ft_strcpy(char *dest, const char *src);
 char				*ft_strncpy(char *dest, const char *src, size_t len);
@@ -112,30 +172,12 @@ char				*ft_strrchr(const char *s, int c);
 char				*ft_strpbrk(const char *s1, const char *s2);
 char				*ft_strdup(const char *src);
 char				*ft_strndup(const char *src, int n);
-int					ft_atoi(const char *str);
-int					ft_isalpha(int c);
-int					ft_isdigit(int c);
-int					ft_isalnum(int c);
-int					ft_isascii(int c);
-int					ft_isprint(int c);
-int					ft_toupper(int c);
-int					ft_tolower(int c);
-t_list				*ft_lstnew(void const *content, size_t content_size);
-void				ft_lstdelone(t_list **alst, void (*del)(void*, size_t));
-void				ft_lstdel(t_list **alst, void (*del)(void*, size_t));
-void				ft_lstadd(t_list **alst, t_list *new);
-void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
-t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-int					ft_sqrt(int nb);
-int					ft_prime(int nb);
 char				*ft_strlowcase(char *str);
 char				*ft_strupcase(char *str);
+void				ft_strcombin(char **s1, const char *s2);
 void				ft_swap(int *a, int *b);
 char				*ft_strrev(char *str);
-int					ft_isblank(int c);
-int					ft_isxdigit(int c);
 char				*ft_strnjoin(char *s1, char *s2, size_t len);
-int					ft_atoibase(char *str, char *base_from);
 void				ft_strswap(char **s1, char **s2);
 char				*ft_str_pushback(char *str, char c);
 char				*ft_strsum(char *str1, char *str2, int base);
@@ -144,14 +186,8 @@ char				*ft_strmult(char *num1, char *num2, int base);
 char				*ft_strpower(int base, int exponent, int x);
 int					ft_max(int a, int b);
 int					ft_min(int a, int b);
-char				*ft_poslltoa(long long int n);
-void				ft_strcombin(char **s1, const char *s2);
-int					len_tab(char **tab);
-void				free_tabstr(char ***tab);
-void				add_2_tab(char ***tab, char *elem);
-char				*join_from_tab(char **tab, int start, char *sep);
-char				**copy_char2(char **tab, int start);
-char				**copy_2_char(char **tab);
+int					ft_sqrt(int nb);
+int					ft_prime(int nb);
 void				ft_epurstr(char **str);
 
 #endif
