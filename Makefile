@@ -16,7 +16,8 @@ LIBFT  = ft_memset ft_bzero ft_memcpy ft_memccpy ft_memmove ft_memchr ft_printhe
 		 ft_lltoa ft_ulltoa_base ft_strpower ft_strmult ft_strcnew ft_ltoa ft_maxmin\
 		 ft_poslltoa bt_apply_infix bt_apply_revinfix bt_apply_prefix bt_apply_suffix\
 		 bt_create_node bt_insert_item bt_search_item bt_size_count bt_level_count bt_free\
-		 copy_2_char ft_epurstr\
+		 copy_2_char ft_epurstr qt_enqueue qt_dequeue qt_isempty qt_free qt_front qt_print\
+		 qt_new_queue\
 
 LIBFT_SRC = $(addprefix srcs/, $(addsuffix .c, $(LIBFT)))
 

@@ -17,45 +17,18 @@
 # include <stdlib.h>
 # include <limits.h>
 # include "ft_printf.h"
+# include "structs.h"
 # define BUFF_SIZE 1000
 
-typedef struct		s_mult
-{
-	int				i;
-	int				j;
-	int				n1;
-	int				n2;
-	int				i_n1;
-	int				i_n2;
-	int				carry;
-	int				sum;
-	int				*result;
-	char			*s;
-}					t_mult;
-
-typedef struct		s_bt
-{
-	void			*item;
-	struct s_bt		*left;
-	struct s_bt		*right;
-}					t_bt;
-
-typedef struct		s_list
-{
-	void			*content;
-	size_t			content_size;
-	struct s_list	*next;
-}					t_list;
-
 /*
-** BTREE Functions
+**	BINARY TREE :	-----------------------------------------------------
 */
 
 t_bt				*bt_create_node(void *item);
 void				bt_insert_item(t_bt **root, void *item,
-		int (*cmpf)(void *, void *));
+								int (*cmpf)(void *, void *));
 t_bt				*bt_search_item(t_bt *root, void *data_ref,
-		int (*cmpf)(void *, void *));
+								int (*cmpf)(void *, void *));
 void				bt_apply_infix(t_bt *root, void (*applyf)(void *));
 void				bt_apply_revinfix(t_bt *root, void (*applyf)(void *));
 void				bt_apply_prefix(t_bt *root, void (*applyf)(void *));
@@ -63,6 +36,22 @@ void				bt_apply_suffix(t_bt *root, void (*applyf)(void *));
 int					bt_size_count(t_bt *root);
 int					bt_level_count(t_bt *root);
 void				bt_free(t_bt **root, void (*freef)(void **));
+
+/*
+**		QUEUE :		-----------------------------------------------------
+*/
+
+int					qt_enqueue(t_queue *queue, void *content, size_t size);
+int					qt_dequeue(t_queue *queue);
+int					qt_front(t_queue queue, void *content);
+t_queue				qt_new_queue(void);
+int					qt_isempty(t_queue queue);
+void				qt_print(t_queue queue, int type, int sep);
+void				qt_free(t_queue *queue);
+
+/*
+**					-----------------------------------------------------
+*/
 
 int					get_next_line(const int fd, char **line);
 void				ft_printhex(int n);
