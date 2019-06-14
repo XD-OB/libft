@@ -6,18 +6,18 @@
 /*   By: ishaimou <ishaimou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 07:01:09 by ishaimou          #+#    #+#             */
-/*   Updated: 2019/04/09 07:07:57 by ishaimou         ###   ########.fr       */
+/*   Updated: 2019/06/14 16:45:28 by obelouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char				*all_zero_u(char *nbr, int precis)
+char			*all_zero_u(char *nbr, int precis)
 {
-	char			*res;
-	int				i;
-	int				j;
-	int				len_nbr;
+	char		*res;
+	int			i;
+	int			j;
+	int			len_nbr;
 
 	len_nbr = ft_strlen(nbr);
 	if (precis > len_nbr)
@@ -34,11 +34,11 @@ char				*all_zero_u(char *nbr, int precis)
 	return (ft_strdup(nbr));
 }
 
-static int			precis_u_annex(t_fmt *fmt, int nbr_len, char **str)
+static int		u_0(t_fmt *fmt, int nbr_len, char **str)
 {
-	char			*new;
-	int				i;
-	int				j;
+	char		*new;
+	int			i;
+	int			j;
 
 	new = ft_strcnew(fmt->precis, '0');
 	if (fmt->minus)
@@ -62,16 +62,15 @@ static int			precis_u_annex(t_fmt *fmt, int nbr_len, char **str)
 	return (ft_strlen(new));
 }
 
-void				precis_u(char **str, t_fmt *fmt, int nbr_len)
+void			precis_u(char **str, t_fmt *fmt, int nbr_len)
 {
-	int				i;
-	int				j;
-	int				len;
-	char			*res;
+	char		*res;
+	int			len;
+	int			i;
+	int			j;
 
 	i = -1;
-	len = (fmt->precis > nbr_len) ?
-			precis_u_annex(fmt, nbr_len, str) : nbr_len;
+	len = (fmt->precis > nbr_len) ? u_0(fmt, nbr_len, str) : nbr_len;
 	res = ft_strnew(fmt->width);
 	if (fmt->minus)
 	{
