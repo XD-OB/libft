@@ -16,8 +16,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
-# include "ft_printf.h"
 # include "structs.h"
+# include "ft_printf.h"
 # define BUFF_SIZE 1000
 
 /*
@@ -70,6 +70,14 @@ void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_lstprint(t_list *head, int type, int sep);
+
+/*
+**		INT CASE:		-----------------------------------------------------
+*/
+
+void				ic_pushnode(t_icase **icase, int value);
+void				ic_addnode(t_icase **icase, int value);
+char				*ic_joinstr(t_icase **icase, int size);
 
 /*
 **	PRINT/READ:			-----------------------------------------------------

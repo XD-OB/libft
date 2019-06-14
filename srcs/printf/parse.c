@@ -12,38 +12,41 @@
 
 #include "ft_printf.h"
 
-void			init_node(t_lst *node)
+void			init_node(t_fmt *node)
 {
 	node->arglist = NULL;
-	node->format->precis = -1;
-	node->format->width = 0;
-	node->format->convers = '\0';
-	node->format->pos = 0;
-	node->format->argn = 0;
+	node->color = NULL;
+	node->precis = -1;
+	node->width = 0;
+	node->convers = '\0';
+	node->pos = 0;
+	node->argn = 0;
 }
 
-static t_lst	*create_node(void)
+static t_fmt	*create_node(void)
 {
-	t_lst		*node;
+	t_fmt		*node;
 
-	node = (t_lst*)malloc(sizeof(t_lst));
-	node->format = (t_format*)malloc(sizeof(t_format));
+	node = (t_fmt*)malloc(sizeof(t_fmt));
 	init_node(node);
 	node->next = NULL;
 	return (node);
 }
 
-static void		advance_free(t_lst **node, int *p)
+static void		advance_free(t_fmt **node, int *p)
 {
-	free((*node)->format);
+	if ((*node)->color)
+		free((*node)->color);
+	if ((*node)->arglist)
+		free((*node)->arglist);
 	free(*node);
 	*p = -1;
 }
 
-t_lst			*parse_format(va_list ap, char *str, int *pflag)
+t_fmt			*parse_format(va_list ap, char *str, int *pflag)
 {
-	t_lst		*head;
-	t_lst		*node;
+	t_fmt		*head;
+	t_fmt		*node;
 	long		i;
 
 	i = -1;
@@ -58,7 +61,7 @@ t_lst			*parse_format(va_list ap, char *str, int *pflag)
 			if (check_fill(ap, &str[i], i - 1, node) != -1)
 			{
 				head = add_node(head, node);
-				while (str[i] && str[i] != node->format->convers)
+				while (str[i] && str[i] != node->convers)
 					i++;
 			}
 			else

@@ -38,7 +38,7 @@ static int			exception(char *format, int *len)
 int					ft_printf(const char *format, ...)
 {
 	t_chr			*chr;
-	t_lst			*lst;
+	t_fmt			*fmt;
 	va_list			ap;
 	int				len[3];
 
@@ -48,17 +48,17 @@ int					ft_printf(const char *format, ...)
 	while (format[len[1]])
 		len[1]++;
 	va_start(ap, format);
-	lst = parse_format(ap, (char*)format, &len[2]);
-	if (!lst)
+	fmt = parse_format(ap, (char*)format, &len[2]);
+	if (!fmt)
 		return (exception((char*)format, len));
-	if (!(chr = load_chr((char*)format, lst)))
+	if (!(chr = load_chr((char*)format, fmt)))
 	{
-		free_lst(&lst);
+		free_fmt(&fmt);
 		return (-1);
 	}
-	fill_chr(lst, chr, ap);
-	len[0] = put_chr(lst, chr);
-	free_lst(&lst);
+	fill_chr(fmt, chr, ap);
+	len[0] = put_chr(fmt, chr);
+	free_fmt(&fmt);
 	free_chr(&chr);
 	va_end(ap);
 	return (len[0]);

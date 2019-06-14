@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void		conv_invalid(t_chr **mychr, t_format *format, va_list ap)
+void		conv_invalid(t_chr **mychr, t_fmt *format, va_list ap)
 {
 	int		i;
 
@@ -34,63 +34,63 @@ void		conv_invalid(t_chr **mychr, t_format *format, va_list ap)
 	}
 }
 
-static int	conv_bold_color(t_lst *lst, t_chr **mychr)
+static int	conv_bold_color(t_fmt *fmt, t_chr **mychr)
 {
-	if (!ft_strcmp(lst->format->flag, "RED"))
+	if (!ft_strcmp(fmt->color, "RED"))
 		(*mychr)->str = ft_strdup(B_RED);
-	else if (!ft_strcmp(lst->format->flag, "GREEN"))
+	else if (!ft_strcmp(fmt->color, "GREEN"))
 		(*mychr)->str = ft_strdup(B_GREEN);
-	else if (!ft_strcmp(lst->format->flag, "YELLOW"))
+	else if (!ft_strcmp(fmt->color, "YELLOW"))
 		(*mychr)->str = ft_strdup(B_YELLOW);
-	else if (!ft_strcmp(lst->format->flag, "BLUE"))
+	else if (!ft_strcmp(fmt->color, "BLUE"))
 		(*mychr)->str = ft_strdup(B_BLUE);
-	else if (!ft_strcmp(lst->format->flag, "PURPLE"))
+	else if (!ft_strcmp(fmt->color, "PURPLE"))
 		(*mychr)->str = ft_strdup(B_PURPLE);
-	else if (!ft_strcmp(lst->format->flag, "CYAN"))
+	else if (!ft_strcmp(fmt->color, "CYAN"))
 		(*mychr)->str = ft_strdup(B_CYAN);
 	else
 		return (0);
 	return (1);
 }
 
-void		conv_color(t_lst *lst, t_chr **mychr)
+void		conv_color(t_fmt *fmt, t_chr **mychr)
 {
 	(*mychr)->len = 0;
-	if (conv_bold_color(lst, mychr))
+	if (conv_bold_color(fmt, mychr))
 		return ;
-	if (!ft_strcmp(lst->format->flag, "red"))
+	if (!ft_strcmp(fmt->color, "red"))
 		(*mychr)->str = ft_strdup(RED);
-	else if (!ft_strcmp(lst->format->flag, "green"))
+	else if (!ft_strcmp(fmt->color, "green"))
 		(*mychr)->str = ft_strdup(GREEN);
-	else if (!ft_strcmp(lst->format->flag, "yellow"))
+	else if (!ft_strcmp(fmt->color, "yellow"))
 		(*mychr)->str = ft_strdup(YELLOW);
-	else if (!ft_strcmp(lst->format->flag, "blue"))
+	else if (!ft_strcmp(fmt->color, "blue"))
 		(*mychr)->str = ft_strdup(BLUE);
-	else if (!ft_strcmp(lst->format->flag, "purple"))
+	else if (!ft_strcmp(fmt->color, "purple"))
 		(*mychr)->str = ft_strdup(PURPLE);
-	else if (!ft_strcmp(lst->format->flag, "cyan"))
+	else if (!ft_strcmp(fmt->color, "cyan"))
 		(*mychr)->str = ft_strdup(CYAN);
-	else if (!ft_strcmp(lst->format->flag, "eoc"))
+	else if (!ft_strcmp(fmt->color, "eoc"))
 		(*mychr)->str = ft_strdup(EOC);
 	else
 	{
-		(*mychr)->str = ft_strdup(lst->format->flag);
+		(*mychr)->str = ft_strdup(fmt->color);
 		(*mychr)->len = ft_strlen((*mychr)->str);
 	}
 }
 
-void		conv_percent(t_chr **mychr, t_lst *lst, va_list ap)
+void		conv_percent(t_chr **mychr, t_fmt *fmt, va_list ap)
 {
 	char	*str;
 	int		len;
 	int		i;
 	char	c;
 
-	flag_star(lst->format, ap);
-	len = ft_max(1, lst->format->width);
+	flag_star(fmt, ap);
+	len = ft_max(1, fmt->width);
 	str = ft_strnew(len);
-	c = (ft_strchr(lst->format->flag, '0')) ? '0' : ' ';
-	if (ft_strchr(lst->format->flag, '-'))
+	c = (fmt->zero) ? '0' : ' ';
+	if (fmt->minus)
 	{
 		str[0] = '%';
 		i = 0;

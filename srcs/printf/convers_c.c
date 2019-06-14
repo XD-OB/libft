@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-char			*ft_dollar_cs(t_format *fmt)
+char			*ft_dollar_cs(t_fmt *fmt)
 {
 	char		*tmp;
 	char		*str;
@@ -40,11 +40,11 @@ int				ft_countnp(char *s)
 	return (count_np);
 }
 
-static void		conv_c_annex(t_lst *lst, char **str, va_list ap, int len)
+static void		conv_c_annex(t_fmt *fmt, char **str, va_list ap, int len)
 {
 	int			i;
 
-	if (ft_strchr(lst->format->flag, '-'))
+	if (fmt->minus)
 	{
 		i = 0;
 		(*str)[i] = (char)va_arg(ap, int);
@@ -55,26 +55,26 @@ static void		conv_c_annex(t_lst *lst, char **str, va_list ap, int len)
 	{
 		i = -1;
 		while (++i < len - 1)
-			(*str)[i] = (ft_strchr(lst->format->flag, '0') ? '0' : ' ');
+			(*str)[i] = (fmt->zero) ? '0' : ' ';
 		(*str)[i] = (char)va_arg(ap, unsigned int);
 	}
 }
 
-void			conv_c(t_lst *lst, t_chr **mychr, va_list ap)
+void			conv_c(t_fmt *fmt, t_chr **mychr, va_list ap)
 {
 	int			len;
 	char		*str;
 
-	flag_star(lst->format, ap);
-	if (flag_dollar(lst))
+	flag_star(fmt, ap);
+	if (flag_dollar(fmt))
 	{
-		(*mychr)->str = ft_dollar_cs(lst->format);
+		(*mychr)->str = ft_dollar_cs(fmt);
 		(*mychr)->len = ft_strlen((*mychr)->str);
 		return ;
 	}
-	len = (lst->format->width < 2) ? 1 : lst->format->width;
+	len = (fmt->width < 2) ? 1 : fmt->width;
 	str = ft_strnew(len);
-	conv_c_annex(lst, &str, ap, len);
+	conv_c_annex(fmt, &str, ap, len);
 	(*mychr)->str = str;
 	(*mychr)->len = len;
 }

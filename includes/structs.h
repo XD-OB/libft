@@ -35,4 +35,10 @@ typedef struct		s_queue
 	t_list			*rear;
 }					t_queue;
 
+typedef struct		s_icase
+{
+	int				n;
+	struct s_icase	*next;
+}					t_icase;
+
 #endif

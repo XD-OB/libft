@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static char		*xx_zero_res(t_format *fmt, char *nbr, int len_nbr, char c)
+static char		*xx_zero_res(t_fmt *fmt, char *nbr, int len_nbr, char c)
 {
 	char		*res;
 	int			i;
@@ -20,7 +20,7 @@ static char		*xx_zero_res(t_format *fmt, char *nbr, int len_nbr, char c)
 
 	res = (char*)malloc(sizeof(char) * (fmt->width + 1));
 	res[fmt->width] = '\0';
-	if (!ft_strchr(fmt->flag, '-'))
+	if (!fmt->minus)
 	{
 		i = fmt->width;
 		j = len_nbr;
@@ -41,7 +41,7 @@ static char		*xx_zero_res(t_format *fmt, char *nbr, int len_nbr, char c)
 	return (res);
 }
 
-char			*xx_zero(t_format *fmt)
+char			*xx_zero(t_fmt *fmt)
 {
 	int			len_nbr;
 	char		*nbr;
@@ -54,8 +54,8 @@ char			*xx_zero(t_format *fmt)
 	nbr = ft_strcnew(len_nbr, '0');
 	if (fmt->width > len_nbr)
 	{
-		c = (fmt->precis == -1 && ft_strchr(fmt->flag, '0')
-				&& !ft_strchr(fmt->flag, '-')) ? '0' : ' ';
+		c = (fmt->precis == -1 && fmt->zero && !fmt->minus) ?
+			'0' : ' ';
 		res = xx_zero_res(fmt, nbr, len_nbr, c);
 		free(nbr);
 		return (res);

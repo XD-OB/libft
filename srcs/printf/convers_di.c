@@ -21,7 +21,7 @@ static int		sign_n(long long int n)
 	return (0);
 }
 
-static void		di_zero(t_chr **chr, t_format *fmt)
+static void		di_zero(t_chr **chr, t_fmt *fmt)
 {
 	char		*nbr;
 	int			len_nbr;
@@ -29,12 +29,12 @@ static void		di_zero(t_chr **chr, t_format *fmt)
 	if (fmt->precis == -1)
 		fmt->precis = 1;
 	len_nbr = fmt->precis;
-	if (ft_strpbrk(fmt->flag, "+ "))
+	if (fmt->plus || fmt->space)
 		len_nbr++;
 	nbr = ft_strcnew(len_nbr, '0');
-	if (ft_strchr(fmt->flag, '+'))
+	if (fmt->plus)
 		nbr[0] = '+';
-	else if (ft_strchr(fmt->flag, ' '))
+	else if (fmt->space)
 		nbr[0] = ' ';
 	if (fmt->width > len_nbr)
 	{
@@ -53,7 +53,7 @@ static void		di_zero(t_chr **chr, t_format *fmt)
 ** len[2]       0: len_nbr		1: len_num
 */
 
-static char		*di_nbr(t_format *fmt, char *num, int *len, int sign)
+static char		*di_nbr(t_fmt *fmt, char *num, int *len, int sign)
 {
 	char		*nbr;
 	int			i;
@@ -69,21 +69,21 @@ static char		*di_nbr(t_format *fmt, char *num, int *len, int sign)
 		nbr[i] = '0';
 	if (sign == -1)
 		nbr[0] = '-';
-	else if (ft_strchr(fmt->flag, '+'))
+	else if (fmt->plus)
 		nbr[0] = '+';
-	else if (ft_strchr(fmt->flag, ' '))
+	else if (fmt->space)
 		nbr[0] = ' ';
 	return (nbr);
 }
 
-static void		di_n(t_chr **chr, t_format *fmt, char *num, int sign)
+static void		di_n(t_chr **chr, t_fmt *fmt, char *num, int sign)
 {
 	char		*nbr;
 	int			len[2];
 
 	len[1] = ft_strlen(num);
 	len[0] = ft_max(fmt->precis, len[1]);
-	if (sign == -1 || ft_strpbrk(fmt->flag, "+ "))
+	if (sign == -1 || fmt->plus || fmt->space)
 		len[0]++;
 	nbr = di_nbr(fmt, num, len, sign);
 	if (fmt->width > len[0])
@@ -99,23 +99,22 @@ static void		di_n(t_chr **chr, t_format *fmt, char *num, int sign)
 	}
 }
 
-void			conv_di(t_lst *lst, t_chr **chr, va_list ap)
+void			conv_di(t_fmt *fmt, t_chr **chr, va_list ap)
 {
 	long long int	n;
 	int				sign;
 	char			*num;
 
-	flag_star(lst->format, ap);
-	n = (flag_dollar(lst)) ?
-		cast_di(*(lst->arglist), lst->format->flag) :
-		cast_di(ap, lst->format->flag);
+	flag_star(fmt, ap);
+	n = (flag_dollar(fmt)) ? cast_di(*(fmt->arglist), fmt)
+							: cast_di(ap, fmt);
 	sign = sign_n(n);
 	if (sign == 0)
-		di_zero(chr, lst->format);
+		di_zero(chr, fmt);
 	else
 	{
 		num = ft_poslltoa(n);
-		di_n(chr, lst->format, num, sign);
+		di_n(chr, fmt, num, sign);
 		free(num);
 		num = NULL;
 	}

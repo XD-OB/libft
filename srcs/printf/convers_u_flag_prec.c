@@ -34,14 +34,14 @@ char				*all_zero_u(char *nbr, int precis)
 	return (ft_strdup(nbr));
 }
 
-static int			precis_u_annex(t_format *fmt, int nbr_len, char **str)
+static int			precis_u_annex(t_fmt *fmt, int nbr_len, char **str)
 {
 	char			*new;
 	int				i;
 	int				j;
 
 	new = ft_strcnew(fmt->precis, '0');
-	if (ft_strchr(fmt->flag, '-'))
+	if (fmt->minus)
 	{
 		i = -1;
 		while (++i < fmt->precis - nbr_len)
@@ -62,7 +62,7 @@ static int			precis_u_annex(t_format *fmt, int nbr_len, char **str)
 	return (ft_strlen(new));
 }
 
-void				precis_u(char **str, t_format *fmt, int nbr_len)
+void				precis_u(char **str, t_fmt *fmt, int nbr_len)
 {
 	int				i;
 	int				j;
@@ -70,9 +70,10 @@ void				precis_u(char **str, t_format *fmt, int nbr_len)
 	char			*res;
 
 	i = -1;
-	len = (fmt->precis > nbr_len) ? precis_u_annex(fmt, nbr_len, str) : nbr_len;
+	len = (fmt->precis > nbr_len) ?
+			precis_u_annex(fmt, nbr_len, str) : nbr_len;
 	res = ft_strnew(fmt->width);
-	if (ft_strchr(fmt->flag, '-'))
+	if (fmt->minus)
 	{
 		while (++i < len)
 			res[i] = (*str)[i];

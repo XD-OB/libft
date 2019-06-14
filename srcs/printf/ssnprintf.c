@@ -80,7 +80,7 @@ static int				sprintf_null(char *format, int *len, long n)
 int						ft_sprintf(char **str, const char *format, ...)
 {
 	t_chr				*mychr;
-	t_lst				*lst;
+	t_fmt				*fmt;
 	va_list				ap;
 	int					len[3];
 
@@ -89,15 +89,15 @@ int						ft_sprintf(char **str, const char *format, ...)
 	while (format[len[1]])
 		(len[1])++;
 	va_start(ap, format);
-	lst = parse_format(ap, (char*)format, &(len[2]));
-	if (!lst)
+	fmt = parse_format(ap, (char*)format, &(len[2]));
+	if (!fmt)
 		return (sprintf_null((char*)format, len, INT_MIN));
-	if (!(mychr = load_chr((char*)format, lst)))
+	if (!(mychr = load_chr((char*)format, fmt)))
 		return (-1);
-	fill_chr(lst, mychr, ap);
+	fill_chr(fmt, mychr, ap);
 	len[0] = get_chr_len(mychr);
 	*str = str_chr(mychr, len[0]);
-	free_lst(&lst);
+	free_fmt(&fmt);
 	free_chr(&mychr);
 	va_end(ap);
 	return (len[0]);
@@ -107,7 +107,7 @@ int						ft_snprintf(char **str, size_t n,
 								const char *format, ...)
 {
 	t_chr				*mychr;
-	t_lst				*lst;
+	t_fmt				*fmt;
 	va_list				ap;
 	int					len[3];
 
@@ -116,17 +116,17 @@ int						ft_snprintf(char **str, size_t n,
 	while (format[len[1]])
 		(len[1])++;
 	va_start(ap, format);
-	lst = parse_format(ap, (char*)format, &(len[2]));
-	if (!lst)
+	fmt = parse_format(ap, (char*)format, &(len[2]));
+	if (!fmt)
 		return (sprintf_null((char*)format, len, n));
-	if (!(mychr = load_chr((char*)format, lst)))
+	if (!(mychr = load_chr((char*)format, fmt)))
 		return (-1);
-	fill_chr(lst, mychr, ap);
+	fill_chr(fmt, mychr, ap);
 	len[0] = get_chr_len(mychr);
 	if (len[0] > (int)n)
 		len[0] = n;
 	*str = str_chr(mychr, n);
-	free_lst(&lst);
+	free_fmt(&fmt);
 	free_chr(&mychr);
 	va_end(ap);
 	return (len[0]);

@@ -26,18 +26,17 @@ void		add_minus(char **str)
 	*str = new;
 }
 
-void		flag_star(t_format *format, va_list ap)
+void		flag_star(t_fmt *format, va_list ap)
 {
 	int		n;
 
-	if (ft_strchr(format->flag, '*'))
+	if (format->star)
 	{
 		n = va_arg(ap, int);
 		if (n < 0)
 		{
 			n *= -1;
-			if (!ft_strchr(format->flag, '-'))
-				add_minus(&(format->flag));
+			format->minus = 1;
 		}
 		format->width = n;
 	}
@@ -45,15 +44,15 @@ void		flag_star(t_format *format, va_list ap)
 		format->precis = va_arg(ap, int);
 }
 
-int			flag_dollar(t_lst *lst)
+int			flag_dollar(t_fmt *fmt)
 {
 	int		i;
 
-	if (ft_strchr(lst->format->flag, '$'))
+	if (fmt->dollar)
 	{
 		i = 0;
-		while (++i < lst->format->argn)
-			va_arg(*(lst->arglist), void*);
+		while (++i < fmt->argn)
+			va_arg(*(fmt->arglist), void*);
 		return (1);
 	}
 	return (0);

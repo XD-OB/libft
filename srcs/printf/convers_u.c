@@ -12,17 +12,17 @@
 
 #include "ft_printf.h"
 
-static int			conv_u_1(t_lst *lst, char **str, char *nbr)
+static int			conv_u_1(t_fmt *fmt, char **str, char *nbr)
 {
 	char			c;
 	int				i;
 	size_t			size;
 
-	size = ft_max(ft_strlen(nbr), lst->format->width);
+	size = ft_max(ft_strlen(nbr), fmt->width);
 	if (!(*str = ft_strnew(size)))
 		return (-1);
-	c = (ft_strchr(lst->format->flag, '0') && lst->format->precis) ? '0' : ' ';
-	if (ft_strchr(lst->format->flag, '-'))
+	c = (fmt->zero && fmt->precis) ? '0' : ' ';
+	if (fmt->minus)
 	{
 		ft_strcpy(*str, nbr);
 		i = ft_strlen(nbr);
@@ -39,14 +39,14 @@ static int			conv_u_1(t_lst *lst, char **str, char *nbr)
 	return (0);
 }
 
-static void			conv_u_2(t_lst *lst, char **str, char *nbr, t_chr **mychr)
+static void			conv_u_2(t_fmt *fmt, char **str, char *nbr, t_chr **mychr)
 {
-	if (lst->format->precis > 0 && lst->format->precis < lst->format->width)
-		precis_u(str, lst->format, ft_strlen(nbr));
-	else if (lst->format->precis >= lst->format->width)
+	if (fmt->precis > 0 && fmt->precis < fmt->width)
+		precis_u(str, fmt, ft_strlen(nbr));
+	else if (fmt->precis >= fmt->width)
 	{
 		free(*str);
-		*str = all_zero_u(nbr, lst->format->precis);
+		*str = all_zero_u(nbr, fmt->precis);
 	}
 	(*mychr)->str = *str;
 	free(nbr);
@@ -57,29 +57,29 @@ static void			conv_u_2(t_lst *lst, char **str, char *nbr, t_chr **mychr)
 **	str[0] = str | str[1] = nbr
 */
 
-void				conv_u(t_lst *lst, t_chr **mychr, va_list ap)
+void				conv_u(t_fmt *fmt, t_chr **mychr, va_list ap)
 {
 	char			*str[2];
 	unsigned long	n;
 
-	flag_star(lst->format, ap);
-	n = (flag_dollar(lst)) ? cast_xxoub(*(lst->arglist), lst->format)
-		: cast_xxoub(ap, lst->format);
-	if (n == 0 && !lst->format->precis)
+	flag_star(fmt, ap);
+	n = (flag_dollar(fmt)) ? cast_xxoub(*(fmt->arglist), fmt)
+		: cast_xxoub(ap, fmt);
+	if (n == 0 && !fmt->precis)
 	{
-		(*mychr)->str = ft_strcnew(lst->format->width, ' ');
-		((*mychr)->str)[lst->format->width] = '\0';
-		(*mychr)->len = lst->format->width;
+		(*mychr)->str = ft_strcnew(fmt->width, ' ');
+		((*mychr)->str)[fmt->width] = '\0';
+		(*mychr)->len = fmt->width;
 		return ;
 	}
 	str[1] = ft_ultoa(n);
-	flag_apostrophe(&str[1], lst->format);
-	if (lst->format->precis <= 0)
+	flag_apostrophe(&str[1], fmt);
+	if (fmt->precis <= 0)
 	{
-		if (conv_u_1(lst, &str[0], str[1]) == -1)
+		if (conv_u_1(fmt, &str[0], str[1]) == -1)
 			return ;
 	}
 	else
 		str[0] = ft_strdup(str[1]);
-	conv_u_2(lst, &str[0], str[1], mychr);
+	conv_u_2(fmt, &str[0], str[1], mychr);
 }
