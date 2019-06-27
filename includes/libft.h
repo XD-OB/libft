@@ -88,6 +88,16 @@ void				ic_addnode(t_icase **icase, int value);
 char				*ic_joinstr(t_icase **icase, int size);
 
 /*
+**		STR LIST :		-----------------------------------------------------
+*/
+
+int					chr_len(t_chr *chr);
+void				chr_init(t_chr **chr);
+void				chr_free(t_chr **chr);
+void				chr_addnode(t_chr **list, char *str, int len);
+void				chr_pushfront(t_chr **list, char *str, int len);
+
+/*
 **	PRINT/READ:			-----------------------------------------------------
 */
 

@@ -20,7 +20,7 @@ void			semi_load(char *format, t_fmt *fmt, int *p, t_chr **curr)
 		(*curr)->len = p[1] - p[0] + 1;
 		(*curr)->next = (t_chr*)malloc(sizeof(t_chr));
 		(*curr) = (*curr)->next;
-		init_chr(curr);
+		chr_init(curr);
 	}
 	p[0] = p[1] + 1;
 	if (format[p[0]] == '%')
@@ -31,7 +31,7 @@ void			semi_load(char *format, t_fmt *fmt, int *p, t_chr **curr)
 	{
 		(*curr)->next = (t_chr*)malloc(sizeof(t_chr));
 		(*curr) = (*curr)->next;
-		init_chr(curr);
+		chr_init(curr);
 	}
 }
 
@@ -59,7 +59,7 @@ t_chr			*load_chr(char *format, t_fmt *fmt)
 
 	if (!(mychr = (t_chr*)malloc(sizeof(t_chr))))
 		return (0);
-	init_chr(&mychr);
+	chr_init(&mychr);
 	p[0] = 0;
 	curr = mychr;
 	while (fmt)

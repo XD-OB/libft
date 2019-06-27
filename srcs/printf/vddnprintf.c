@@ -40,7 +40,7 @@ int			ft_vprintf(const char *format, va_list ap)
 	fill_chr(fmt, mychr, ap);
 	len[0] = put_chr(fmt, mychr);
 	free_fmt(&fmt);
-	free_chr(&mychr);
+	chr_free(&mychr);
 	va_end(ap);
 	return (len[0]);
 }
@@ -76,7 +76,7 @@ int			ft_dprintf(int fd, const char *format, ...)
 	fill_chr(fmt, mychr, ap);
 	len[0] = put_chr_fd(fd, fmt, mychr);
 	free_fmt(&fmt);
-	free_chr(&mychr);
+	chr_free(&mychr);
 	va_end(ap);
 	return (len[0]);
 }
@@ -110,7 +110,7 @@ int			ft_dnprintf(int fd, size_t n, const char *format, ...)
 	fill_chr(fmt, mychr, ap);
 	len[0] = put_chr_nfd(fd, n, mychr);
 	free_fmt(&fmt);
-	free_chr(&mychr);
+	chr_free(&mychr);
 	va_end(ap);
 	return (len[0]);
 }

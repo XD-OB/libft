@@ -98,7 +98,7 @@ int						ft_sprintf(char **str, const char *format, ...)
 	len[0] = get_chr_len(mychr);
 	*str = str_chr(mychr, len[0]);
 	free_fmt(&fmt);
-	free_chr(&mychr);
+	chr_free(&mychr);
 	va_end(ap);
 	return (len[0]);
 }
@@ -127,7 +127,7 @@ int						ft_snprintf(char **str, size_t n,
 		len[0] = n;
 	*str = str_chr(mychr, n);
 	free_fmt(&fmt);
-	free_chr(&mychr);
+	chr_free(&mychr);
 	va_end(ap);
 	return (len[0]);
 }

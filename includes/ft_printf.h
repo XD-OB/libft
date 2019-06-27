@@ -95,13 +95,6 @@ typedef struct		s_fmt
 	struct s_fmt	*next;
 }					t_fmt;
 
-typedef struct		s_chr
-{
-	char			*str;
-	unsigned int	len;
-	struct s_chr	*next;
-}					t_chr;
-
 int					is_format(char c);
 int					is_postflag(char c);
 int					is_preflag(char c);
@@ -153,8 +146,6 @@ int					flag_dollar(t_fmt *fmt);
 char				*ft_dollar_cs(t_fmt *fmt);
 int					ft_countnp(char *s);
 char				*cut_str(char *str, int p1, int p2);
-void				init_chr(t_chr **chr);
-void				free_chr(t_chr **chr);
 t_chr				*load_chr(char *format, t_fmt *fmt);
 void				fill_chr(t_fmt *fmt, t_chr *chr, va_list ap);
 int					put_chr(t_fmt *fmt, t_chr *chr);

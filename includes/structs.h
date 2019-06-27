@@ -6,7 +6,7 @@
 /*   By: obelouch <OB-96@hotmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 05:58:26 by obelouch          #+#    #+#             */
-/*   Updated: 2019/06/28 05:58:28 by obelouch         ###   ########.fr       */
+/*   Updated: 2019/06/29 00:25:08 by ishaimou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,12 @@ typedef struct		s_icase
 	int				n;
 	struct s_icase	*next;
 }					t_icase;
+
+typedef struct		s_chr
+{
+	char			*str;
+	unsigned int	len;
+	struct s_chr	*next;
+}					t_chr;
 
 #endif

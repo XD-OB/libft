@@ -59,7 +59,7 @@ int					ft_printf(const char *format, ...)
 	fill_chr(fmt, chr, ap);
 	len[0] = put_chr(fmt, chr);
 	free_fmt(&fmt);
-	free_chr(&chr);
+	chr_free(&chr);
 	va_end(ap);
 	return (len[0]);
 }
