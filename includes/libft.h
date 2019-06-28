@@ -6,7 +6,7 @@
 /*   By: obelouch <OB-96@hotmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 01:07:21 by obelouch          #+#    #+#             */
-/*   Updated: 2019/05/22 06:46:52 by obelouch         ###   ########.fr       */
+/*   Updated: 2019/06/28 05:53:41 by obelouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@
 # include "structs.h"
 # include "ft_printf.h"
 # define BUFF_SIZE 1000
+# define HASH_C 2
+
+/*
+**		HASH :			-----------------------------------------------------
+*/
+
+unsigned long		hash_str(char *str);
+int					hash_filltab(char **hash_tab, int size, char *str);
 
 /*
 **	BINARY TREE :		-----------------------------------------------------
