@@ -6,7 +6,7 @@
 /*   By: obelouch <OB-96@hotmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 01:07:21 by obelouch          #+#    #+#             */
-/*   Updated: 2019/06/28 05:53:41 by obelouch         ###   ########.fr       */
+/*   Updated: 2019/07/01 07:35:22 by ishaimou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void				bt_free(t_bt **root, void (*freef)(void **));
 int					qt_enqueue(t_queue *queue, void *content, size_t size);
 int					qt_dequeue(t_queue *queue);
 int					qt_front(t_queue queue, void *content);
-t_queue				qt_new_queue(void);
+t_queue				*qt_new_queue(void);
 int					qt_isempty(t_queue queue);
 void				qt_print(t_queue queue, int type, int sep);
 void				qt_free(t_queue *queue);
@@ -72,12 +72,15 @@ void				sk_free(t_list **head);
 */
 
 t_list				*ft_lstnew(void const *content, size_t content_size);
+t_list				*ft_lstnew_sm(void *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void (*del)(void*, size_t));
 void				ft_lstdel(t_list **alst, void (*del)(void*, size_t));
 void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_lstprint(t_list *head, int type, int sep);
+void    			ft_lstadd_last(t_list **lst, t_list* node);
+int             	ft_list_size(t_list *begin_list);
 
 /*
 **		INT CASE:		-----------------------------------------------------
@@ -86,6 +89,10 @@ void				ft_lstprint(t_list *head, int type, int sep);
 void				ic_pushnode(t_icase **icase, int value);
 void				ic_addnode(t_icase **icase, int value);
 char				*ic_joinstr(t_icase **icase, int size);
+void				ic_lstdel(t_list **alst);
+void				ic_free(t_icase **icase);
+void				ic_print(t_icase *icase);
+int					ic_size(t_icase *icase);
 
 /*
 **		STR LIST :		-----------------------------------------------------
@@ -94,6 +101,7 @@ char				*ic_joinstr(t_icase **icase, int size);
 int					chr_len(t_chr *chr);
 void				chr_init(t_chr **chr);
 void				chr_free(t_chr **chr);
+void				chr_revprint(t_chr *list);
 void				chr_addnode(t_chr **list, char *str, int len);
 void				chr_pushfront(t_chr **list, char *str, int len);
 
@@ -215,5 +223,6 @@ int					ft_min(int a, int b);
 int					ft_sqrt(int nb);
 int					ft_prime(int nb);
 void				ft_epurstr(char **str);
+void				reset_tab_int(int *tab, int size, int n);
 
 #endif

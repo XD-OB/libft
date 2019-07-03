@@ -13,7 +13,8 @@ LIBFT  = ft_memset ft_bzero ft_memcpy ft_memccpy ft_memmove ft_memchr ft_printhe
 		 ft_strlowcase ft_strupcase ft_swap ft_strrev ft_isblank ft_isxdigit ft_sqrt\
 		 ft_strnjoin ft_atoi_base ft_strswap ft_strsum ft_str_pushback ft_ulltoa\
 		 ft_lltoa ft_ulltoa_base ft_strpower ft_strmult ft_strcnew ft_ltoa ft_maxmin\
-		 ft_poslltoa copy_2_char ft_epurstr join_from_tab add_2_tab hash_str hash_filltab\
+		 ft_poslltoa copy_2_char ft_epurstr join_from_tab add_2_tab reset_tab_int\
+		 hash_str hash_filltab\
 
 LIBFT_SRC = $(addprefix srcs/, $(addsuffix .c, $(LIBFT)))
 LIBFT_OBJ = $(addsuffix .o, $(LIBFT))
@@ -23,9 +24,11 @@ LIBFT_OBJ = $(addsuffix .o, $(LIBFT))
 LIB_STRUCTS = qt_enqueue qt_dequeue qt_isempty qt_free qt_front qt_print qt_new_queue\
 			  bt_apply_infix bt_apply_revinfix bt_apply_prefix bt_apply_suffix bt_free\
 			  bt_create_node bt_insert_item bt_search_item bt_size_count bt_level_count\
-		 	  ft_lstnew ft_lstdelone ft_lstdel ft_lstadd ft_lstiter ft_lstmap ft_lstprint\
-			  sk_push sk_pop sk_top sk_free sk_isempty ic_addnode ic_pushnode ic_joinstr\
-			  chr_init chr_free chr_len chr_pushfront chr_addnode\
+		 	  ft_lstnew ft_lstnew_sm ft_lstdelone ft_lstdel ft_lstadd ft_lstiter\
+			  ft_lstmap ft_lstprint ft_list_size ft_lstadd_last\
+			  sk_push sk_pop sk_top sk_free sk_isempty\
+			  ic_addnode ic_pushnode ic_joinstr ic_free ic_print ic_lstdel ic_size\
+			  chr_init chr_free chr_len chr_pushfront chr_addnode chr_revprint\
 
 LIB_STRUCTS_SRC = $(addprefix srcs/data_structs/, $(addsuffix .c, $(LIB_STRUCTS)))
 LIB_STRUCTS_OBJ = $(addsuffix .o, $(LIB_STRUCTS))

@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   qt_new_queue.c                                     :+:      :+:    :+:   */
+/*   ft_list_size.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelouch <OB-96@hotmail.com>               +#+  +:+       +#+        */
+/*   By: ishaimou <ishaimou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/14 16:52:51 by obelouch          #+#    #+#             */
-/*   Updated: 2019/06/30 02:08:40 by ishaimou         ###   ########.fr       */
+/*   Created: 2019/07/01 07:34:21 by ishaimou          #+#    #+#             */
+/*   Updated: 2019/07/01 07:34:56 by ishaimou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_queue		*qt_new_queue(void)
+int             ft_list_size(t_list *begin_list)
 {
-	t_queue	*queue;
+	int             i;
 
-	if (!(queue = (t_queue*)malloc(sizeof(t_queue))))
-		return (NULL);
-	queue->front = NULL;
-	queue->rear = NULL;
-	return (queue);
+	i = 0;
+	while (begin_list)
+	{
+		begin_list = begin_list->next;
+		i++;
+	}
+	return (i);
 }

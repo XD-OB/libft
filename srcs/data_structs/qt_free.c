@@ -6,7 +6,7 @@
 /*   By: obelouch <OB-96@hotmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 16:53:02 by obelouch          #+#    #+#             */
-/*   Updated: 2019/06/14 16:53:04 by obelouch         ###   ########.fr       */
+/*   Updated: 2019/06/30 03:03:00 by ishaimou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,8 @@
 
 void			qt_free(t_queue *queue)
 {
-	t_list		*curr;
-	t_list		*tmp;
-
-	curr = queue->front;
-	while (curr)
-	{
-		free(curr->content);
-		tmp = curr;
-		curr = curr->next;
-		free(tmp);
-	}
+	while (!qt_isempty(*queue))
+		qt_dequeue(queue);
+	free(queue);
+	queue = NULL;
 }
