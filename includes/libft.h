@@ -25,8 +25,10 @@
 **		HASH :			-----------------------------------------------------
 */
 
-unsigned long		hash_str(char *str);
+int					hash_findid(char **tab_hash, int size, char *str);
+int					hash_strtoind(char **tab_hash, int size, char *str);
 int					hash_filltab(char **hash_tab, int size, char *str);
+unsigned long		hash_str(char *str);
 
 /*
 **	BINARY TREE :		-----------------------------------------------------
@@ -93,6 +95,10 @@ void				ic_lstdel(t_list **alst);
 void				ic_free(t_icase **icase);
 void				ic_print(t_icase *icase);
 int					ic_size(t_icase *icase);
+int					ic_lstfind(t_list *list, t_icase *target);
+int					ic_ncmp(t_icase *list1, t_icase *list2, size_t n);
+int					ic_cmp(t_icase *list1, t_icase *list2);
+t_icase				*ic_copy(t_icase *icase);
 
 /*
 **		STR LIST :		-----------------------------------------------------
