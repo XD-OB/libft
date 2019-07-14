@@ -25,9 +25,11 @@
 **		HASH :			-----------------------------------------------------
 */
 
-int					hash_findid(char **tab_hash, int size, char *str);
-int					hash_strtoind(char **tab_hash, int size, char *str);
-int					hash_filltab(char **hash_tab, int size, char *str);
+void				hash_putintab(char **tab, int size, char *s, int *ind);
+int					hash_findid(char **tab, int size, char *s);
+int					hash_strtoind(char **tab, int size, char *s);
+int					hash_filltab(char **tab, int size, char *s);
+void				hash_freetab(char ***tab_hash, int size);
 unsigned long		hash_str(char *str);
 
 /*
@@ -107,9 +109,12 @@ t_icase				*ic_copy(t_icase *icase);
 int					chr_len(t_chr *chr);
 void				chr_init(t_chr **chr);
 void				chr_free(t_chr **chr);
+void				chr_print(t_chr *list);
 void				chr_revprint(t_chr *list);
 void				chr_addnode(t_chr **list, char *str, int len);
 void				chr_pushfront(t_chr **list, char *str, int len);
+t_chr				*gnl_nsave_chr(int fd, int nbr_lines);
+t_chr				*gnl_save_chr(int fd);
 
 /*
 **	PRINT/READ:			-----------------------------------------------------
@@ -148,11 +153,30 @@ char				*ft_poslltoa(long long int n);
 */
 
 int					len_tab(char **tab);
+//int					tabstr_len(char **tab);
 void				free_tabstr(char ***tab);
+//void				tab_str_free(char ***tab);
 void				add_2_tab(char ***tab, char *elem);
+//void				tabstr_add(char ***tab, char *elem);
 char				*join_from_tab(char **tab, int start, char *sep);
+//char				*tabstr_njoin(char **tab, int start, int end, char *sep);
+//char				*tabstr_join(char **tab, char *sep);
 char				**copy_char2(char **tab, int start);
+//char				**tabstr_ncopy(char **tab, int start, int end);
 char				**copy_2_char(char **tab);
+//char				**tabstr_copy(char **tab);
+
+/*
+**		INT ARRAY:      -----------------------------------------------------
+*/
+
+void				tabint_reset(int *tab, int size, int n);
+
+/*
+**		INT MATRIX:     -----------------------------------------------------
+*/
+
+void				mxint_free(int ***tab, int size);
 
 /*
 **		MEMORY :		-----------------------------------------------------
@@ -229,6 +253,5 @@ int					ft_min(int a, int b);
 int					ft_sqrt(int nb);
 int					ft_prime(int nb);
 void				ft_epurstr(char **str);
-void				reset_tab_int(int *tab, int size, int n);
 
 #endif

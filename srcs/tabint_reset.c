@@ -1,6 +1,6 @@
 #include "libft.h"
 
-void	reset_tab_int(int *tab, int size, int n)
+void	tabint_reset(int *tab, int size, int n)
 {
 	int		i;
 
