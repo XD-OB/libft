@@ -12,14 +12,14 @@
 
 #include "ft_printf.h"
 
-static char		*o_nbr(t_fmt *fmt, char *num, int len_num, int *len_nbr)
+static char		*o_nbr(t_format *fmt, char *num, int len_num, int *len_nbr)
 {
 	char		*nbr;
 	int			dash;
 	int			i;
 	int			j;
 
-	dash = (fmt->dash) ? 1 : 0;
+	dash = (ft_strchr(fmt->flag, '#')) ? 1 : 0;
 	*len_nbr = ft_max(len_num + dash, fmt->precis);
 	nbr = (char*)malloc(sizeof(char) * (*len_nbr + 1));
 	nbr[*len_nbr] = '\0';
@@ -32,7 +32,7 @@ static char		*o_nbr(t_fmt *fmt, char *num, int len_num, int *len_nbr)
 	return (nbr);
 }
 
-static char		*o_nres(t_fmt *fmt, char *nbr, int len_nbr, char c)
+static char		*o_nres(t_format *fmt, char *nbr, int len_nbr, char c)
 {
 	char		*res;
 	int			i;
@@ -40,7 +40,7 @@ static char		*o_nres(t_fmt *fmt, char *nbr, int len_nbr, char c)
 
 	res = (char*)malloc(sizeof(char) * (fmt->width + 1));
 	res[fmt->width] = '\0';
-	if (!fmt->minus)
+	if (!ft_strchr(fmt->flag, '-'))
 	{
 		i = -1;
 		while (++i < fmt->width - len_nbr)
@@ -60,7 +60,7 @@ static char		*o_nres(t_fmt *fmt, char *nbr, int len_nbr, char c)
 	return (res);
 }
 
-char			*o_n(t_fmt *fmt, char *num, int len_num)
+char			*o_n(t_format *fmt, char *num, int len_num)
 {
 	char		*res;
 	char		*nbr;
@@ -70,10 +70,8 @@ char			*o_n(t_fmt *fmt, char *num, int len_num)
 	nbr = o_nbr(fmt, num, len_num, &len_nbr);
 	if (fmt->width - len_nbr > 0)
 	{
-		if (fmt->precis == -1 && fmt->zero && !fmt->minus)
-			c = '0';
-		else
-			c = ' ';
+		c = (fmt->precis == -1 && ft_strchr(fmt->flag, '0')
+				&& !ft_strchr(fmt->flag, '-')) ? '0' : ' ';
 		res = o_nres(fmt, nbr, len_nbr, c);
 		free(nbr);
 		return (res);

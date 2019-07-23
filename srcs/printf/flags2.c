@@ -40,7 +40,7 @@ void		flag_dash(char **nbr, int base)
 	free(tmp);
 }
 
-void		flag_apostrophe(char **str, t_fmt *fmt)
+void		flag_apostrophe(char **str, t_format *fmt)
 {
 	int		prev_len;
 	int		count;
@@ -48,7 +48,7 @@ void		flag_apostrophe(char **str, t_fmt *fmt)
 	int		i;
 	int		j;
 
-	if (fmt->quote && ft_strchr("udif", fmt->convers))
+	if (ft_strchr(fmt->flag, '\'') && ft_strchr("udif", fmt->convers))
 	{
 		prev_len = ft_strlen(*str);
 		i = prev_len;

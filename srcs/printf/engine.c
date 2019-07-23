@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void			semi_load(char *format, t_fmt *fmt, int *p, t_chr **curr)
+void			semi_load(char *format, t_lst *lst, int *p, t_chr **curr)
 {
 	if (p[1] >= p[0])
 	{
@@ -20,18 +20,18 @@ void			semi_load(char *format, t_fmt *fmt, int *p, t_chr **curr)
 		(*curr)->len = p[1] - p[0] + 1;
 		(*curr)->next = (t_chr*)malloc(sizeof(t_chr));
 		(*curr) = (*curr)->next;
-		chr_init(curr);
+		init_chr(curr);
 	}
 	p[0] = p[1] + 1;
 	if (format[p[0]] == '%')
 		p[0]++;
-	while (format[p[0]] != fmt->convers)
+	while (format[p[0]] != lst->format->convers)
 		p[0]++;
-	if (fmt->next)
+	if (lst->next)
 	{
 		(*curr)->next = (t_chr*)malloc(sizeof(t_chr));
 		(*curr) = (*curr)->next;
-		chr_init(curr);
+		init_chr(curr);
 	}
 }
 
@@ -51,7 +51,7 @@ char			*strnspdup(char *s, unsigned int *size)
 	return (ft_strndup(s, len));
 }
 
-t_chr			*load_chr(char *format, t_fmt *fmt)
+t_chr			*load_chr(char *format, t_lst *lst)
 {
 	t_chr		*mychr;
 	t_chr		*curr;
@@ -59,14 +59,14 @@ t_chr			*load_chr(char *format, t_fmt *fmt)
 
 	if (!(mychr = (t_chr*)malloc(sizeof(t_chr))))
 		return (0);
-	chr_init(&mychr);
+	init_chr(&mychr);
 	p[0] = 0;
 	curr = mychr;
-	while (fmt)
+	while (lst)
 	{
-		p[1] = fmt->pos - 1;
-		semi_load(format, fmt, p, &curr);
-		fmt = fmt->next;
+		p[1] = lst->format->pos - 1;
+		semi_load(format, lst, p, &curr);
+		lst = lst->next;
 		p[0]++;
 	}
 	if (format[p[0]] && format[p[0]] != '%')
@@ -79,45 +79,45 @@ t_chr			*load_chr(char *format, t_fmt *fmt)
 	return (mychr);
 }
 
-static void		some_convers(t_fmt *fmt, t_chr *chr, va_list ap)
+static void		some_convers(t_lst *lst, t_chr *chr, va_list ap)
 {
-	if (fmt->convers == 's')
-		conv_s(fmt, &chr, ap);
-	else if (fmt->convers == 'c')
-		conv_c(fmt, &chr, ap);
-	else if (ft_strchr("uU", fmt->convers))
-		conv_u(fmt, &chr, ap);
-	else if (fmt->convers == 'o')
-		conv_o(fmt, &chr, ap);
-	else if (fmt->convers == 'k')
+	if (lst->format->convers == 's')
+		conv_s(lst, &chr, ap);
+	else if (lst->format->convers == 'c')
+		conv_c(lst, &chr, ap);
+	else if (ft_strchr("uU", lst->format->convers))
+		conv_u(lst, &chr, ap);
+	else if (lst->format->convers == 'o')
+		conv_o(lst, &chr, ap);
+	else if (lst->format->convers == 'k')
 		conv_k(&chr, ap);
-	else if (fmt->convers == '}')
-		conv_color(fmt, &chr);
+	else if (lst->format->convers == '}')
+		conv_color(lst, &chr);
+	else if (ft_strchr("pP", lst->format->convers))
+		conv_p(lst, &chr, ap);
 	else
-		conv_percent(&chr, fmt, ap);
+		conv_percent(&chr, lst, ap);
 }
 
-void			fill_chr(t_fmt *fmt, t_chr *chr, va_list ap)
+void			fill_chr(t_lst *lst, t_chr *chr, va_list ap)
 {
-	while (fmt)
+	while (lst)
 	{
 		while (chr && chr->str)
 			chr = chr->next;
-		if (ft_strchr("di", fmt->convers))
-			conv_di(fmt, &chr, ap);
-		else if (ft_strchr("xX", fmt->convers))
-			conv_xx(fmt, &chr, ap);
-		else if (ft_strchr("pP", fmt->convers))
-			conv_p(fmt, &chr, ap);
-		else if (ft_strchr("bB", fmt->convers))
-			conv_b(fmt, &chr, ap);
-		else if (ft_strchr("uUosck}%", fmt->convers))
-			some_convers(fmt, chr, ap);
-		else if (ft_strchr("fHeEgG", fmt->convers))
-			conv_d_efgh(fmt, &chr, ap);
+		if (ft_strchr("di", lst->format->convers))
+			conv_di(lst, &chr, ap);
+		else if (ft_strchr("xX", lst->format->convers))
+			conv_xx(lst, &chr, ap);
+		else if (ft_strchr("uUosckpP}%", lst->format->convers))
+			some_convers(lst, chr, ap);
+		else if (ft_strchr("fHeEgG", lst->format->convers))
+			conv_d_efgh(lst, &chr, ap);
+		else if (ft_strchr("bB", lst->format->convers))
+			conv_b(lst, &chr, ap);
 		else
-			conv_invalid(&chr, fmt, ap);
-		fmt = fmt->next;
+			conv_invalid(&chr, lst->format, ap);
+		lst = lst->next;
 		chr = chr->next;
 	}
 }

@@ -6,15 +6,15 @@
 /*   By: obelouch <OB-96@hotmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 17:43:57 by obelouch          #+#    #+#             */
-/*   Updated: 2019/06/29 04:06:04 by ishaimou         ###   ########.fr       */
+/*   Updated: 2019/04/12 01:09:10 by obelouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_fmt		*add_node(t_fmt *head, t_fmt *node)
+t_lst		*add_node(t_lst *head, t_lst *node)
 {
-	t_fmt	*current;
+	t_lst	*current;
 
 	current = head;
 	if (!head)
@@ -25,34 +25,64 @@ t_fmt		*add_node(t_fmt *head, t_fmt *node)
 	return (head);
 }
 
-int			fmtlen(t_fmt *fmt)
+void		init_chr(t_chr **chr)
 {
+	(*chr)->str = NULL;
+	(*chr)->len = 0;
+	(*chr)->next = NULL;
+}
+
+int			lstlen(t_lst *lst)
+{
+	t_lst	*curr;
 	int		size;
 
 	size = 0;
-	while (fmt)
+	curr = lst;
+	while (curr)
 	{
 		size++;
-		fmt = fmt->next;
+		curr = curr->next;
 	}
 	return (size);
 }
 
-void		free_fmt(t_fmt **fmt)
+void		free_chr(t_chr **chr)
 {
-	t_fmt	*curr;
-	t_fmt	*next;
+	t_chr	*curr;
+	t_chr	*next;
 
-	curr = *fmt;
+	curr = *chr;
 	while (curr)
 	{
 		next = curr->next;
-		if (curr->color)
-			free(curr->color);
+		if (curr->str)
+			free(curr->str);
+		free(curr);
+		curr = next;
+	}
+	*chr = NULL;
+}
+
+void		free_lst(t_lst **lst)
+{
+	t_lst	*curr;
+	t_lst	*next;
+
+	curr = *lst;
+	while (curr)
+	{
+		next = curr->next;
+		if (curr->format)
+		{
+			if (curr->format->flag)
+				free(curr->format->flag);
+			free(curr->format);
+		}
 		if (curr->arglist)
 			free(curr->arglist);
 		free(curr);
 		curr = next;
 	}
-	*fmt = NULL;
+	*lst = NULL;
 }

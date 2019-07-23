@@ -26,7 +26,7 @@ static void		nanf_annex(char **res, char *s, long *len, int wid)
 	*len = wid;
 }
 
-void			custom_nanf(t_fmt *fmt, char **str, long *len)
+void			custom_nanf(t_format *fmt, char **str, long *len)
 {
 	long		i;
 	long		j;
@@ -34,7 +34,7 @@ void			custom_nanf(t_fmt *fmt, char **str, long *len)
 
 	res = (char*)malloc(sizeof(char) * (fmt->width + 1));
 	res[fmt->width] = '\0';
-	if (fmt->minus)
+	if (ft_strchr(fmt->flag, '-'))
 	{
 		i = 0;
 		j = 0;
@@ -50,7 +50,7 @@ void			custom_nanf(t_fmt *fmt, char **str, long *len)
 	*str = res;
 }
 
-static char		*inff_minus(t_fmt *fmt, char *str, long *len, int sign)
+static char		*inff_minus(t_format *fmt, char *str, long *len, int sign)
 {
 	long		i;
 	long		j;
@@ -62,9 +62,9 @@ static char		*inff_minus(t_fmt *fmt, char *str, long *len, int sign)
 	j = 0;
 	if (sign)
 		res[i++] = '-';
-	else if (fmt->plus)
+	else if (ft_strchr(fmt->flag, '+'))
 		res[i++] = '+';
-	else if (fmt->space)
+	else if (ft_strchr(fmt->flag, ' '))
 		res[i++] = ' ';
 	while (j < *len)
 		res[i++] = str[j++];
@@ -78,12 +78,12 @@ static char		*inff_minus(t_fmt *fmt, char *str, long *len, int sign)
 **	var:	0:i			1:j
 */
 
-void			custom_inff(t_fmt *fmt, char **str, long *len, int sign)
+void			custom_inff(t_format *fmt, char **str, long *len, int sign)
 {
 	long		var[2];
 	char		*res;
 
-	if (fmt->minus)
+	if (ft_strchr(fmt->flag, '-'))
 		res = inff_minus(fmt, *str, len, sign);
 	else
 	{
@@ -95,8 +95,10 @@ void			custom_inff(t_fmt *fmt, char **str, long *len, int sign)
 			res[--(var[0])] = (*str)[--(var[1])];
 		if (sign)
 			res[--(var[0])] = '-';
-		else if (fmt->plus)
+		else if (ft_strchr(fmt->flag, '+'))
 			res[--(var[0])] = '+';
+		else if (ft_strchr(fmt->flag, ' '))
+			res[--(var[0])] = ' ';
 		while (var[0] > 0)
 			res[--(var[0])] = ' ';
 		*len = fmt->width;

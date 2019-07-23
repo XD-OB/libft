@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static char		*null_str(t_fmt *fmt, int *len_str)
+static char		*null_str(t_format *fmt, int *len_str)
 {
 	char		*str;
 
@@ -37,7 +37,7 @@ static char		*null_str(t_fmt *fmt, int *len_str)
 	return (str);
 }
 
-static char		*s_str(t_fmt *fmt, char *str, int *len_str)
+static char		*s_str(t_format *fmt, char *str, int *len_str)
 {
 	char		*res;
 	char		c;
@@ -45,9 +45,9 @@ static char		*s_str(t_fmt *fmt, char *str, int *len_str)
 
 	res = (char*)malloc(sizeof(char) * (fmt->width + 1));
 	res[fmt->width] = '\0';
-	if (!fmt->minus)
+	if (!ft_strchr(fmt->flag, '-'))
 	{
-		c = (fmt->zero) ? '0' : ' ';
+		c = (ft_strchr(fmt->flag, '0')) ? '0' : ' ';
 		i = fmt->width;
 		while (--(*len_str) >= 0)
 			res[--i] = str[*len_str];
@@ -66,7 +66,7 @@ static char		*s_str(t_fmt *fmt, char *str, int *len_str)
 	return (res);
 }
 
-static char		*mystr(t_fmt *fmt, char *s, int *len_str)
+static char		*mystr(t_format *fmt, char *s, int *len_str)
 {
 	char		*str;
 
@@ -86,25 +86,25 @@ static char		*mystr(t_fmt *fmt, char *s, int *len_str)
 	return (str);
 }
 
-void			conv_s(t_fmt *fmt, t_chr **chr, va_list ap)
+void			conv_s(t_lst *lst, t_chr **chr, va_list ap)
 {
 	int			len_str;
 	char		*str;
 	char		*s;
 
-	flag_star(fmt, ap);
-	if (flag_dollar(fmt))
+	flag_star(lst->format, ap);
+	if (flag_dollar(lst))
 	{
-		(*chr)->str = ft_dollar_cs(fmt);
+		(*chr)->str = ft_dollar_cs(lst->format);
 		(*chr)->len = ft_strlen((*chr)->str);
 	}
 	else
 	{
 		s = va_arg(ap, char*);
-		str = mystr(fmt, s, &len_str);
-		if (fmt->width > len_str)
+		str = mystr(lst->format, s, &len_str);
+		if (lst->format->width > len_str)
 		{
-			(*chr)->str = s_str(fmt, str, &len_str);
+			(*chr)->str = s_str(lst->format, str, &len_str);
 			free(str);
 		}
 		else

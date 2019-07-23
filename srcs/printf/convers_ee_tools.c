@@ -6,7 +6,7 @@
 /*   By: obelouch <OB-96@hotmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 06:48:35 by obelouch          #+#    #+#             */
-/*   Updated: 2019/06/14 16:50:29 by obelouch         ###   ########.fr       */
+/*   Updated: 2019/04/17 11:34:29 by obelouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** 	len[3]:	len[0]: len_e	len[1]: len_f	len[2]: pos   len[3]: len
 */
 
-char		*eprefix(t_fmt *fmt, long *len)
+char		*eprefix(t_format *fmt, long *len)
 {
 	char	*prefix;
 	char	*sc_e;
@@ -41,7 +41,7 @@ char		*eprefix(t_fmt *fmt, long *len)
 	return (prefix);
 }
 
-char		*ejoin(t_fmt *fmt, char *entier, char *fract, long *len)
+char		*ejoin(t_format *fmt, char *entier, char *fract, long *len)
 {
 	char	*prefix;
 	char	*tmp;
@@ -49,7 +49,7 @@ char		*ejoin(t_fmt *fmt, char *entier, char *fract, long *len)
 
 	prefix = eprefix(fmt, len);
 	len[3] += len[0];
-	if (ft_strcmp(fract, "\0") || fmt->dash)
+	if (ft_strcmp(fract, "\0") || ft_strchr(fmt->flag, '#'))
 	{
 		str = ft_strjoin(entier, ".");
 		len[3]++;

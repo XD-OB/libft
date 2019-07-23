@@ -12,118 +12,96 @@
 
 #include "ft_printf.h"
 
-static int		put_width_precis(t_fmt *curr, char **str)
+static int		part_check1(char **flag, char **str, t_lst **curr)
 {
 	if (!**str)
-		return (1);
+		return (adv_freeflag(flag));
 	if (ft_isdigit(**str))
 	{
-		curr->width = ft_atoi(*str);
+		(*curr)->format->width = ft_atoi(*str);
 		while (ft_isdigit(**str))
 			(*str)++;
 	}
 	if (!**str)
-		return (1);
+		return (adv_freeflag(flag));
 	if (**str == '.')
 	{
 		(*str)++;
 		if (**str == '*')
 		{
-			curr->precis = -2;
+			(*curr)->format->precis = -2;
 			(*str)++;
 		}
 		else
-			curr->precis = ft_atoi(*str);
+			(*curr)->format->precis = ft_atoi(*str);
 		while (ft_isdigit(**str))
 			(*str)++;
 	}
 	return (0);
 }
 
-static int		prepare_dollar(t_fmt *curr, char **str, va_list tmp)
+static void		part_check2(char **str, char **flag, char **p)
 {
-	curr->dollar = 1;
+	if ((**str == 'l' && !ft_strstr(*flag, "ll")) || !ft_strchr(*flag, **str)
+				|| (**str == 'h' && !ft_strstr(*flag, "hh")))
+	{
+		**p = **str;
+		(*p)++;
+	}
 	(*str)++;
-	curr->arglist = (va_list*)malloc(sizeof(va_list));
-	va_copy(*(curr->arglist), tmp);
-	curr->argn = ft_atoi(*str);
-	while (ft_isdigit(**str))
-		(*str)++;
-	return (1);
 }
 
-int				put_preflag(t_fmt *curr, char **str, char flag, va_list tmp)
+static int		part_check3(t_lst **curr, char **str, char **flag, int pos)
 {
-	if (flag == '$')
-		return (prepare_dollar(curr, str, tmp));
-	if (flag == '0')
-		curr->zero = 1;
-	else if (flag == '#')
-		curr->dash = 1;
-	else if (flag == ' ')
-		curr->space = 1;
-	else if (flag == '-')
-		curr->minus = 1;
-	else if (flag == '+')
-		curr->plus = 1;
-	else if (flag == '\'')
-		curr->quote = 1;
-	else if (flag == '*')
-		curr->star = 1;
-	else if (flag == 'r')
-		curr->r = 1;
-	else
-		return (0);
-	return (1);
-}
-
-int				put_postflag(t_fmt *curr, char flag, char next)
-{
-	if (flag == 'L')
-		curr->cap_l = 1;
-	else if (flag == 'l')
-	{
-		if (next == 'l')
-			curr->ll = 1;
-		else
-			curr->l = 1;
-	}
-	else if (flag == 'h')
-	{
-		if (next == 'h')
-			curr->hh = 1;
-		else
-			curr->h = 1;
-	}
-	else if (flag == 'r')
-		curr->r = 1;
-	else if (flag == 'j')
-		curr->j = 1;
-	else if (flag == 'z')
-		curr->z = 1;
-	else
-		return (0);
-	return (1);
-}
-
-int				check_fill(va_list tmp, char *str, int pos, t_fmt *curr)
-{
-	curr->pos = pos;
-	if (*str == '{')
+	(*curr)->format->pos = pos;
+	if (**str == '{')
 	{
 		(*str)++;
-		curr->color = ft_strcolor(str);
-		curr->convers = '}';
-		return (0);
-	}
-	while (put_preflag(curr, &str, *str, tmp))
-		str++;
-	if (put_width_precis(curr, &str))
-		return (-1);
-	if (put_postflag(curr, *str, *(str + 1)))
-		str++;
-	if (!*str)
+		(*curr)->format->flag = ft_strcolor(*str);
+		(*curr)->format->convers = '}';
 		return (1);
-	curr->convers = *str;
+	}
+	*flag = ft_strnew(200);
+	return (0);
+}
+
+static void		part_check4(t_lst **curr, char **str, char **p, va_list tmp)
+{
+	**p = **str;
+	if (**str == '$')
+	{
+		(*str)++;
+		(*curr)->arglist = (va_list*)malloc(sizeof(va_list));
+		va_copy(*((*curr)->arglist), tmp);
+		(*curr)->format->argn = ft_atoi(*str);
+		while (ft_isdigit(**str))
+			(*str)++;
+	}
+	(*p)++;
+}
+
+int				check_fill(va_list tmp, char *str, int pos, t_lst *curr)
+{
+	char		*flag;
+	char		*p;
+
+	if (part_check3(&curr, &str, &flag, pos))
+		return (0);
+	p = flag;
+	while (is_preflag(*str))
+	{
+		if (!ft_strchr(flag, *str))
+			part_check4(&curr, &str, &p, tmp);
+		else
+			str++;
+	}
+	if (part_check1(&flag, &str, &curr))
+		return (-1);
+	while (is_postflag(*str))
+		part_check2(&str, &flag, &p);
+	if (!*str)
+		return (adv_freeflag(&flag));
+	curr->format->convers = *str;
+	curr->format->flag = flag;
 	return (0);
 }
