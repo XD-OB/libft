@@ -171,6 +171,7 @@ void				tabint_reset(int *tab, int size, int n);
 **		INT MATRIX:     -----------------------------------------------------
 */
 
+void				mxint_print(int **matrix, int size_y, int size_x);
 void				mxint_free(int ***tab, int size);
 
 /*
