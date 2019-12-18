@@ -10,7 +10,7 @@ static int	test_hash(char ***tab_hash, char *str, int *ind, int i)
 	}
 	if (!ft_strcmp(str, (*tab_hash)[i]))
 	{
-		free_tabstr(tab_hash);
+		tabstr_free(tab_hash);
 		return (0);
 	}
 	return (1);

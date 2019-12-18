@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   len_tab.c                                          :+:      :+:    :+:   */
+/*   tabstr_add.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obelouch <OB-96@hotmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/14 23:21:27 by obelouch          #+#    #+#             */
-/*   Updated: 2019/05/14 23:22:21 by obelouch         ###   ########.fr       */
+/*   Created: 2019/05/14 23:47:04 by obelouch          #+#    #+#             */
+/*   Updated: 2019/05/20 07:25:51 by obelouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			len_tab(char **tab)
+void		tabstr_add(char ***tab, char *elem)
 {
+	char	**new;
 	int		len;
+	int		i;
 
-	len = 0;
-	while (tab[len])
-		len++;
-	return (len);
+	len = tabstr_len(*tab);
+	if (!(new = (char**)malloc(sizeof(char*) * (len + 2))))
+		return ;
+	new[len + 1] = NULL;
+	i = -1;
+	while (++i < len)
+		new[i] = ft_strdup((*tab)[i]);
+	new[len] = ft_strdup(elem);
+	tabstr_free(tab);
+	*tab = new;
 }

@@ -1,31 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   copy_2_char.c                                      :+:      :+:    :+:   */
+/*   tabstr_njoin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obelouch <OB-96@hotmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/17 07:35:34 by obelouch          #+#    #+#             */
-/*   Updated: 2019/05/17 07:36:15 by obelouch         ###   ########.fr       */
+/*   Created: 2019/05/14 23:58:22 by obelouch          #+#    #+#             */
+/*   Updated: 2019/05/15 00:00:34 by obelouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char			**copy_2_char(char **envp)
+char		*tabstr_njoin(char **tab, int start, int end, char *sep)
 {
-	char		**tab;
-	int			len;
-	int			i;
+	char	*res;
+	int		len;
+	int		n;
+	int		i;
 
-	i = 0;
-	len = len_tab(envp);
-	tab = (char**)malloc(sizeof(char*) * (len + 1));
-	tab[len] = NULL;
-	while (envp[i])
+	res = ft_strnew(0);
+	len = tabstr_len(tab);
+	ft_printf("len = %d\n", len);
+	if (start < 0 || start >= len)
+		return (res);
+	n = (end < start) ? len - 1 : ft_min(len - 1, end);
+	i = start;
+	while (i < n)
 	{
-		tab[i] = ft_strdup(envp[i]);
-		i++;
+		ft_strcombin(&res, tab[i++]);
+		ft_strcombin(&res, sep);
 	}
-	return (tab);
+	ft_strcombin(&res, tab[i]);
+	return (res);
 }

@@ -152,19 +152,14 @@ char				*ft_poslltoa(long long int n);
 **	STRING ARRAY :		-----------------------------------------------------
 */
 
-int					len_tab(char **tab);
-//int					tabstr_len(char **tab);
-void				free_tabstr(char ***tab);
-//void				tab_str_free(char ***tab);
-void				add_2_tab(char ***tab, char *elem);
-//void				tabstr_add(char ***tab, char *elem);
-char				*join_from_tab(char **tab, int start, char *sep);
-//char				*tabstr_njoin(char **tab, int start, int end, char *sep);
-//char				*tabstr_join(char **tab, char *sep);
-char				**copy_char2(char **tab, int start);
-//char				**tabstr_ncopy(char **tab, int start, int end);
-char				**copy_2_char(char **tab);
-//char				**tabstr_copy(char **tab);
+int					tabstr_len(char **tab);
+void				tabstr_free(char ***tab);
+void				tabstr_add(char ***tab, char *elem);
+char				*tabstr_njoin(char **tab, int start, int end, char *sep);
+char				*tabstr_join(char **tab, char *sep);
+char				**tabstr_ncopy(char **tab, int start, int end);
+char				**tabstr_copy(char **tab);
+void				tabstr_print(char **tab);
 
 /*
 **		INT ARRAY:      -----------------------------------------------------
