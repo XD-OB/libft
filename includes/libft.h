@@ -6,7 +6,7 @@
 /*   By: obelouch <OB-96@hotmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 01:07:21 by obelouch          #+#    #+#             */
-/*   Updated: 2020/01/11 11:18:30 by vegeta           ###   ########.fr       */
+/*   Updated: 2020/01/11 21:35:21 by vegeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void				hash_freetab(char ***tab_hash, int size);
 unsigned long		hash_str(char *str);
 
 /*
-**	BINARY TREE :		-----------------------------------------------------
+**		BINARY TREE :	-----------------------------------------------------
 */
 
 t_bt				*bt_create_node(void *item);
@@ -72,7 +72,7 @@ void				*sk_top(t_list *top);
 void				sk_free(t_list **head);
 
 /*
-**	LINKED LIST :		-----------------------------------------------------
+**		LINKED LIST :	-----------------------------------------------------
 */
 
 t_list				*ft_lstnew(void const *content, size_t content_size);
@@ -84,7 +84,49 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_lstprint(t_list *head, int type, int sep);
 void    			ft_lstadd_last(t_list **lst, t_list* node);
-int             	ft_list_size(t_list *begin_list);
+void				ft_lstremove(t_list **alst, t_list *place,
+								void (*del)(void*, size_t));
+void				ft_lstinsert(t_list **alst, t_list *place, t_list *node);
+int             	ft_lstlen(t_list *lst);
+
+/*
+**	DOUBLE LINKED LIST:	-----------------------------------------------------
+*/
+
+t_dlist				*dt_lstnew(void const *content, size_t content_size);
+t_dlist				*dt_lstnew_sm(void *content, size_t content_size);
+void				dt_lstdelone(t_dlist **alst, void (*del)(void*, size_t));
+void				dt_lstdel(t_dlist **alst, void (*del)(void*, size_t));
+void				dt_lstadd(t_dlist **alst, t_dlist *new);
+void				dt_lstiter(t_dlist *lst, void (*f)(t_dlist *elem));
+t_dlist				*dt_lstmap(t_dlist *lst, t_dlist *(*f)(t_dlist *elem));
+void				dt_lstremove(t_dlist **alst, t_dlist *place,
+								void (*del)(void*, size_t));
+void				dt_lstinsert(t_dlist **alst, t_dlist *place, t_dlist *node);
+void    			dt_lstadd_last(t_dlist **lst, t_dlist* node);
+int             	dt_lstlen(t_dlist *lst);
+
+/*
+**	CIRCL DLINKED LIST:	-----------------------------------------------------
+*/
+
+t_dlist				*dct_lstnew(const void *content, size_t content_size);
+t_dlist				*dct_lstnew_sm(void *content, size_t content_size);
+void				dct_lstdel(t_dlist **alst, void (*del)(void*, size_t));
+void				dct_lstremove(t_dlist **alst, t_dlist *place,
+								void (*del)(void*, size_t));
+void				dct_lstadd_last(t_dlist **alst, t_dlist* new);
+
+/*
+**	CIRCULAR LIST:		-----------------------------------------------------
+*/
+
+t_list				*ct_lstnew(const void *content, size_t content_size);
+t_list				*ct_lstnew_sm(void *content, size_t content_size);
+void				ct_lstdel(t_list **alst, void (*del)(void*, size_t));
+void				ct_lstremove(t_list **alst, t_list *place,
+								void (*del)(void*, size_t));
+void				ct_lstadd_last(t_list **alst, t_list* new);
 
 /*
 **		INT CASE:		-----------------------------------------------------
@@ -177,7 +219,7 @@ void				mxint_print(int **matrix, int size_y, int size_x);
 void				mxint_free(int ***tab, int size);
 
 /*
-**		POINT  :      -----------------------------------------------------
+**		POINT  :		-----------------------------------------------------
 */
 
 t_point				pt_new(int y, int x);

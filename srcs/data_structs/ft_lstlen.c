@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_list_size.c                                     :+:      :+:    :+:   */
+/*   ft_lstlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ishaimou <ishaimou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 07:34:21 by ishaimou          #+#    #+#             */
-/*   Updated: 2019/07/01 07:34:56 by ishaimou         ###   ########.fr       */
+/*   Updated: 2020/01/11 19:28:26 by vegeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int             ft_list_size(t_list *begin_list)
+int			ft_lstlen(t_list *lst)
 {
-	int             i;
+	int		len;
 
-	i = 0;
-	while (begin_list)
+	len = 0;
+	while (lst)
 	{
-		begin_list = begin_list->next;
-		i++;
+		lst = lst->next;
+		len++;
 	}
-	return (i);
+	return (len);
 }
