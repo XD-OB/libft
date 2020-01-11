@@ -14,8 +14,10 @@ t_chr			*gnl_nsave_chr(int fd, int nbr_lines)
 			((ret = get_next_line(fd, &line)) > 0))
 	{
 		chr_addnode(&input, line, ft_strlen(line));
+		free(line);
 		i++;
 	}
+	free(line);
 	if (ret == 0 || i == nbr_lines)
 		return (input);
 	if (input)
