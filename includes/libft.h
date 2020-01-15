@@ -6,7 +6,7 @@
 /*   By: obelouch <OB-96@hotmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 01:07:21 by obelouch          #+#    #+#             */
-/*   Updated: 2020/01/11 21:35:21 by vegeta           ###   ########.fr       */
+/*   Updated: 2020/01/15 11:47:29 by vegeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,13 +197,14 @@ char				*ft_poslltoa(long long int n);
 
 int					tabstr_len(char **tab);
 void				tabstr_free(char ***tab);
-void				tabstr_add(char ***tab, char *elem);
-char				*tabstr_njoin(char **tab, int start, int end, char *sep);
-char				*tabstr_join(char **tab, char *sep);
-char				**tabstr_ncopy(char **tab, int start, int end);
-char				**tabstr_copy(char **tab);
-void				tabstr_print(char **tab);
 void				tabstr_trim(char **tab);
+void				tabstr_print(char **tab);
+void				tabstr_add(char ***tab, char *elem);
+char				*tabstr_join(char **tab, char *sep);
+char				*tabstr_njoin(char **tab, int start, int end, char *sep);
+char				**tabstr_new(size_t len);
+char				**tabstr_copy(char **tab);
+char				**tabstr_ncopy(char **tab, int start, int end);
 
 /*
 **		INT ARRAY:      -----------------------------------------------------
@@ -255,6 +256,7 @@ int					ft_isprint(int c);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
 char				*ft_strnew(size_t size);
+char				*ft_strcnew(size_t size, char c);
 void				ft_strdel(char **as);
 void				ft_strclr(char *s);
 void				ft_striter(char *s, void (*f)(char *));
@@ -265,7 +267,9 @@ int					ft_strequ(char const *s1, char const *s2);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strfreejoin(char **s1, char **s2, int fmode);
+char				*ft_strnjoin(char *s1, char *s2, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strcjoin(char const *s1, char c);
 void				ft_trimstr(char **str);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
@@ -287,13 +291,12 @@ char				*ft_strndup(const char *src, int n);
 char				*ft_strlowcase(char *str);
 char				*ft_strupcase(char *str);
 void				ft_strcombin(char **s1, const char *s2);
+void				ft_strccombin(char **s1, char c);
 void				ft_swap(int *a, int *b);
 char				*ft_strrev(char *str);
-char				*ft_strnjoin(char *s1, char *s2, size_t len);
 void				ft_strswap(char **s1, char **s2);
 char				*ft_str_pushback(char *str, char c);
 char				*ft_strsum(char *str1, char *str2, int base);
-char				*ft_strcnew(size_t size, char c);
 char				*ft_strmult(char *num1, char *num2, int base);
 char				*ft_strpower(int base, int exponent, int x);
 int					ft_max(int a, int b);
