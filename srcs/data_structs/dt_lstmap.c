@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dt_lstmap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: obelouch <OB-96@hotmail.com>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/18 09:19:26 by obelouch          #+#    #+#             */
+/*   Updated: 2020/01/18 09:19:37 by obelouch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-t_dlist		*dt_lstmap(t_dlist *lst, t_dlist *(*f)(t_dlist *elem))
+t_dlist			*dt_lstmap(t_dlist *lst, t_dlist *(*f)(t_dlist *elem))
 {
-	t_dlist	*new_lst;
-	t_dlist	*ind[2];
+	t_dlist		*new_lst;
+	t_dlist		*ind[2];
 
 	if (!lst || !f)
 		return (NULL);

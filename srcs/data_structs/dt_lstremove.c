@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dt_lstremove.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: obelouch <OB-96@hotmail.com>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/18 09:20:42 by obelouch          #+#    #+#             */
+/*   Updated: 2020/01/18 09:20:58 by obelouch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 static void		lstremove_p2(t_dlist **alst)
@@ -25,7 +37,8 @@ static void		lstremove_p2(t_dlist **alst)
 	}
 }
 
-void	dt_lstremove(t_dlist **alst, t_dlist *place, void (*del)(void*, size_t))
+void			dt_lstremove(t_dlist **alst, t_dlist *place,
+								void (*del)(void*, size_t))
 {
 	t_dlist		*curr;
 

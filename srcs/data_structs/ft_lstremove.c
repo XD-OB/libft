@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstremove.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: obelouch <OB-96@hotmail.com>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/18 09:24:44 by obelouch          #+#    #+#             */
+/*   Updated: 2020/01/18 09:24:57 by obelouch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 static void		ft_lstremove_p2(t_list **alst, t_list *prev, t_list *next)
@@ -22,7 +34,8 @@ static void		ft_lstremove_p2(t_list **alst, t_list *prev, t_list *next)
 	}
 }
 
-void			ft_lstremove(t_list **alst, t_list *place, void (*del)(void*, size_t))
+void			ft_lstremove(t_list **alst, t_list *place,
+								void (*del)(void*, size_t))
 {
 	t_list		*next;
 	t_list		*prev;

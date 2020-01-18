@@ -6,7 +6,7 @@
 /*   By: obelouch <OB-96@hotmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 01:07:21 by obelouch          #+#    #+#             */
-/*   Updated: 2020/01/15 11:47:29 by vegeta           ###   ########.fr       */
+/*   Updated: 2020/01/18 09:12:59 by obelouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,11 @@ void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_lstprint(t_list *head, int type, int sep);
-void    			ft_lstadd_last(t_list **lst, t_list* node);
+void				ft_lstadd_last(t_list **lst, t_list *node);
 void				ft_lstremove(t_list **alst, t_list *place,
 								void (*del)(void*, size_t));
 void				ft_lstinsert(t_list **alst, t_list *place, t_list *node);
-int             	ft_lstlen(t_list *lst);
+int					ft_lstlen(t_list *lst);
 
 /*
 **	DOUBLE LINKED LIST:	-----------------------------------------------------
@@ -103,8 +103,8 @@ t_dlist				*dt_lstmap(t_dlist *lst, t_dlist *(*f)(t_dlist *elem));
 void				dt_lstremove(t_dlist **alst, t_dlist *place,
 								void (*del)(void*, size_t));
 void				dt_lstinsert(t_dlist **alst, t_dlist *place, t_dlist *node);
-void    			dt_lstadd_last(t_dlist **lst, t_dlist* node);
-int             	dt_lstlen(t_dlist *lst);
+void				dt_lstadd_last(t_dlist **lst, t_dlist *node);
+int					dt_lstlen(t_dlist *lst);
 
 /*
 **	CIRCL DLINKED LIST:	-----------------------------------------------------
@@ -115,7 +115,7 @@ t_dlist				*dct_lstnew_sm(void *content, size_t content_size);
 void				dct_lstdel(t_dlist **alst, void (*del)(void*, size_t));
 void				dct_lstremove(t_dlist **alst, t_dlist *place,
 								void (*del)(void*, size_t));
-void				dct_lstadd_last(t_dlist **alst, t_dlist* new);
+void				dct_lstadd_last(t_dlist **alst, t_dlist *new);
 
 /*
 **	CIRCULAR LIST:		-----------------------------------------------------
@@ -126,7 +126,7 @@ t_list				*ct_lstnew_sm(void *content, size_t content_size);
 void				ct_lstdel(t_list **alst, void (*del)(void*, size_t));
 void				ct_lstremove(t_list **alst, t_list *place,
 								void (*del)(void*, size_t));
-void				ct_lstadd_last(t_list **alst, t_list* new);
+void				ct_lstadd_last(t_list **alst, t_list *new);
 
 /*
 **		INT CASE:		-----------------------------------------------------
