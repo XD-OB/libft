@@ -6,7 +6,7 @@
 /*   By: obelouch <OB-96@hotmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 01:07:21 by obelouch          #+#    #+#             */
-/*   Updated: 2020/01/18 09:12:59 by obelouch         ###   ########.fr       */
+/*   Updated: 2020/01/18 20:12:21 by obelouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,6 +255,7 @@ int					ft_isascii(int c);
 int					ft_isprint(int c);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
+int					ft_is_strdigit(char *s);
 char				*ft_strnew(size_t size);
 char				*ft_strcnew(size_t size, char c);
 void				ft_strdel(char **as);
