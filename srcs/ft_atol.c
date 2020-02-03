@@ -12,26 +12,29 @@
 
 #include "libft.h"
 
-static long		longlong_verif(unsigned long long a, int sign)
+static long		long_verif(size_t a, int sign)
 {
+	long		nbr;
+
 	if (sign == -1 && (a - 1) > LONG_MAX)
 		return (0);
 	if (sign == 1 && a > LONG_MAX)
 		return (-1);
-	return ((int)a * sign);
+	nbr = a * sign;
+	return (nbr);
 }
 
 long			ft_atol(const char *str)
 {
-	int					i;
-	unsigned long long	a;
-	int					sign;
+	size_t	 	a;
+	int		i;
+	int		sign;
 
 	i = 0;
 	a = 0;
 	sign = 1;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
-			|| str[i] == '\f' || str[i] == '\r' || str[i] == '\v')
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' ||
+		str[i] == '\f' || str[i] == '\r' || str[i] == '\v')
 		i++;
 	if (str[i] == '+' || str[i] == '-')
 	{
@@ -47,5 +50,5 @@ long			ft_atol(const char *str)
 			break ;
 		i++;
 	}
-	return (longlong_verif(a, sign));
+	return (long_verif(a, sign));
 }

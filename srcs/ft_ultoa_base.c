@@ -1,6 +1,6 @@
 #include "libft.h"
 
-static size_t		len_res(unsigned long long nbr, int base)
+static size_t		len_res(unsigned long nbr)
 {
 	size_t		len;
 
@@ -10,12 +10,12 @@ static size_t		len_res(unsigned long long nbr, int base)
 	return (len);
 }
 
-char			*ft_ulltoa_base(unsigned long long nbr, int base)
+char			*ft_ultoa_base(unsigned long nbr, int base)
 {
 	size_t		len;
 	char		*res;
 
-	len = len_res(nbr, base);
+	len = len_res(nbr);
 	if (!(res = ft_strnew(len)))
 		return (NULL);
 	while (len-- > 0)

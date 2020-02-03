@@ -1,26 +1,41 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: obelouch <OB-96@hotmail.com>               +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/01/26 05:55:48 by obelouch          #+#    #+#              #
+#    Updated: 2020/01/30 06:35:11 by obelouch         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = libft.a
 
-LIBFT  = ft_memset ft_bzero ft_memcpy ft_memccpy ft_memmove ft_memchr ft_printhex ft_putchar\
-		 ft_memcmp ft_memalloc ft_memdel ft_strnew ft_strdel ft_strclr ft_putnbr\
-		 ft_striter ft_striteri ft_strmap ft_strmapi ft_strequ ft_strnequ ft_utoa\
-		 ft_strsub ft_strjoin ft_strtrim ft_strsplit ft_itoa ft_itoa_base ft_trimstr\
-		 ft_utoa_base ft_putstr ft_putendl get_next_line mxint_free mxint_print\
-		 ft_putchar_fd ft_putstr_fd ft_putendl_fd ft_putnbr_fd ft_strlen ft_epurstr\
+LIBFT  = ft_memset ft_bzero ft_memcpy ft_memccpy ft_memmove ft_memchr ft_putnbr ft_putchar\
+		 ft_memcmp ft_memalloc ft_memdel ft_strnew ft_strdel ft_strclr ft_printhex\
+		 ft_striter ft_striteri ft_strmap ft_strmapi ft_strequ ft_strnequ ft_strsub\
+		 ft_strjoin ft_strtrim ft_strsplit ft_strrmblank ft_rmblankstr ft_trimstr\
+		 ft_putstr ft_putendl get_next_line mxint_free mxint_print gnl ft_ends_with\
+		 ft_putchar_fd ft_putstr_fd ft_putendl_fd ft_putnbr_fd ft_strlen ft_strpbrk\
 		 ft_strcpy ft_strncpy ft_strcat ft_strncat ft_strlcat ft_strstr ft_strcombin\
-		 ft_strnstr ft_strcmp ft_strncmp ft_strchr ft_strrchr ft_strpbrk ft_poslltoa\
-		 ft_strdup ft_strndup ft_atoi ft_isalpha ft_isdigit ft_isalnum ft_intlen\
-		 ft_isascii ft_isprint ft_toupper ft_tolower ft_prime ft_ultoa tabint_reset\
-		 ft_strlowcase ft_strupcase ft_swap ft_strrev ft_isblank ft_isxdigit ft_sqrt\
-		 ft_strnjoin ft_atoi_base ft_strswap ft_strsum ft_str_pushback ft_ulltoa\
-		 ft_lltoa ft_ulltoa_base ft_strpower ft_strmult ft_strcnew ft_ltoa ft_maxmin\
+		 ft_strnstr ft_strcmp ft_strncmp ft_strchr ft_strrchr ft_strcnew ft_strswap\
+		 ft_strdup ft_strndup ft_isalpha ft_isdigit ft_isalnum ft_intlen ft_strepur\
+		 ft_isascii ft_isprint ft_toupper ft_tolower ft_prime ft_swap tabint_reset\
+		 ft_strlowcase ft_strupcase ft_strrev ft_isblank ft_isxdigit ft_sqrt\
+		 ft_strnjoin ft_strsum ft_str_pushback ft_strpower ft_strmult ft_maxmin\
 		 hash_str hash_filltab hash_findid hash_strtoind hash_putintab hash_freetab\
 		 tabstr_len tabstr_free tabstr_add tabstr_join tabstr_njoin tabstr_copy\
 		 tabstr_ncopy tabstr_print tabstr_trim tabstr_new ft_strccombin ft_strcjoin\
-		 ft_is_strdigit ft_is_strblank ft_is_strhex ft_atol ft_atol_hex\
+		 ft_is_strdigit ft_is_strblank ft_is_strhex ft_strsplit_char tabstr_rmblank\
+		 ft_atoi ft_atol ft_atou ft_atoz ft_atoi_base ft_atol_base ft_atoz_base\
+		 ft_atol_hex ft_itoa ft_utoa ft_ztoa ft_ltoa ft_lltoa ft_ultoa ft_poslltoa\
+		 ft_ulltoa ft_itoa_base ft_ltoa_base ft_utoa_base ft_ztoa_base ft_lltoa_base\
+		 ft_ulltoa_base\
+
 
 LIBFT_SRC = $(addprefix srcs/, $(addsuffix .c, $(LIBFT)))
 LIBFT_OBJ = $(addprefix srcs/, $(addsuffix .o, $(LIBFT)))
-
 
 
 LIB_STRUCTS = qt_enqueue qt_dequeue qt_isempty qt_free qt_front qt_print qt_new_queue\

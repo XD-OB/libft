@@ -1,39 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ulltoa.c                                        :+:      :+:    :+:   */
+/*   ft_strrmblank.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obelouch <OB-96@hotmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/08 05:49:26 by obelouch          #+#    #+#             */
-/*   Updated: 2019/04/17 07:11:41 by ishaimou         ###   ########.fr       */
+/*   Created: 2020/01/30 06:33:31 by obelouch          #+#    #+#             */
+/*   Updated: 2020/01/30 06:34:01 by obelouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t		len_res(unsigned long long nbr)
+static size_t		new_len(char *str)
 {
 	size_t		len;
+	size_t		i;
 
-	len = 1;
-	while (nbr /= 10)
-		len++;
+	i = 0;
+	len = 0;
+	while (str[i])
+	{
+		if (!ft_isblank(str[i]))
+			len++;
+		i++;
+	}
 	return (len);
 }
 
-char			*ft_ulltoa(unsigned long long nbr)
+char			*ft_strrmblank(char *str)
 {
-	char		*res;
+	char		*clean;
 	size_t		len;
+	size_t		i;
+	size_t		j;
 
-	len = len_res(nbr);
-	if (!(res = ft_strnew(len)))
-		return (NULL);
-	while (len-- > 0)
+	len = new_len(str);
+	clean = ft_strnew(len);
+	i = 0;
+	j = 0;
+	while (j < len)
 	{
-		res[len] = (nbr % 10) + 48;
-		nbr /= 10;
+		if (!ft_isblank(str[i]))
+			clean[j++] = str[i];
+		i++;
 	}
-	return (res);
+	return (clean);
 }

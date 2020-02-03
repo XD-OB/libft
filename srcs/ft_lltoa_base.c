@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ltoa_base.c                                     :+:      :+:    :+:   */
+/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obelouch <obelouch@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,17 +12,17 @@
 
 #include "libft.h"
 
-char			*ft_ltoa_base(long nbr, int base)
+char			*ft_lltoa_base(long long nbr, int base)
 {
-	unsigned long	tmp;
-	size_t		len;
-	size_t		sign;
-	char		*res;
+	unsigned long long	tmp;
+	size_t			len;
+	size_t			sign;
+	char			*res;
 
 	sign = (nbr < 0) ? 1 : 0;
 	len = sign + 1;
 	tmp = ABS(nbr);
-	while (nbr /= base)
+	while (tmp /= base)
 		len++;
 	if (!(res = ft_strnew(len)))
 		return (NULL);

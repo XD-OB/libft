@@ -12,24 +12,28 @@
 
 #include "libft.h"
 
-char					*ft_ultoa(unsigned long int nbr)
+static size_t		len_res(unsigned long nbr)
 {
-	unsigned long int	tmp;
-	char				*res;
-	unsigned long		size;
+	size_t		len;
 
-	size = 1;
-	tmp = nbr;
-	while (tmp /= 10)
-		size++;
-	if (!(res = (char*)malloc(sizeof(char) * (size + 1))))
+	len = 1;
+	while (nbr /= 10)
+		len++;
+	return (len);
+}
+
+char			*ft_ultoa(unsigned long	nbr)
+{
+	char		*res;
+	size_t		len;
+
+	len = len_res(nbr);
+	if (!(res = ft_strnew(len)))
 		return (res);
-	res[size] = '\0';
-	tmp = nbr;
-	while (size-- > 0)
+	while (len-- > 0)
 	{
-		res[size] = (tmp % 10) + 48;
-		tmp /= 10;
+		res[len] = (nbr % 10) + 48;
+		nbr /= 10;
 	}
 	return (res);
 }

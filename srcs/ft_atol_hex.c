@@ -35,12 +35,12 @@ static int		ft_get_val(char c)
 long			ft_atol_hex(char *str)
 {
 	char		*s;
-	long		nb;
-	int			power;
-	int			val;
-	int			i;
+	long		nbr;
+	int		power;
+	int		val;
+	int		i;
 
-	nb = 0;
+	nbr = 0;
 	power = 1;
 	if (str[0] == '0' && str[1] == 'x')
 		s = &str[2];
@@ -52,9 +52,9 @@ long			ft_atol_hex(char *str)
 		val = ft_get_val(s[i]);
 		if (val < 0)
 			return (0);
-		nb += val * power;
+		nbr += val * power;
 		power *= 16;
 		i--;
 	}
-	return (nb);
+	return (nbr);
 }

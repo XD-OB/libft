@@ -25,8 +25,6 @@
 # define TRUE	1
 # define FALSE	0
 
-# define ABS(x) (x < 0) ? -x : x
-
 # define D_BIAS 1023
 # define LD_BIAS 16383
 # define MAX_D 	2047

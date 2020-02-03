@@ -1,43 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_poslltoa.c                                      :+:      :+:    :+:   */
+/*   ft_ztoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ishaimou <ishaimou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obelouch <obelouch@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/17 07:01:24 by ishaimou          #+#    #+#             */
-/*   Updated: 2019/04/17 07:02:03 by ishaimou         ###   ########.fr       */
+/*   Created: 2019/02/04 11:37:16 by ishaimou          #+#    #+#             */
+/*   Updated: 2019/04/17 07:08:49 by ishaimou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t		len_res(long long nbr)
+static size_t		len_res(size_t nbr, int base)
 {
 	size_t		len;
 
-	len = 1;	
-	while (nbr /= 10)
+	len = 1;
+	while (nbr /= base)
 		len++;
 	return (len);
 }
 
-char			*ft_poslltoa(long long nbr)
+char			*ft_ztoa_base(size_t nbr, int base)
 {
 	size_t		len;
 	char		*res;
 
-	if (nbr == LLONG_MIN)
-		return (ft_strdup("9223372036854775808"));
-	if (nbr < 0)
-		nbr *= -1;
-	len = len_res(nbr);
+	len = len_res(nbr, base);
 	if (!(res = ft_strnew(len)))
 		return (NULL);
 	while (len-- > 0)
 	{
-		res[len] = nbr % 10 + '0';
-		nbr /= 10;
+		if (nbr % base < 10)
+			res[len] = (nbr % base) + '0';
+		else
+			res[len] = (nbr % base) + 'A' - 10;
+		nbr /= base;
 	}
 	return (res);
 }

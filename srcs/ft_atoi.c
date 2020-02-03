@@ -12,26 +12,29 @@
 
 #include "libft.h"
 
-static int	long_verif(unsigned long a, int sign)
+static int	int_verif(size_t a, int sign)
 {
+	int	nbr;
+
 	if (sign == -1 && (a - 1) > INT_MAX)
 		return (0);
 	if (sign == 1 && a > INT_MAX)
 		return (-1);
-	return ((int)(a * sign));
+	nbr = a * sign;
+	return (nbr);
 }
 
-int			ft_atoi(const char *str)
+int		ft_atoi(const char *str)
 {
-	int				i;
-	unsigned long	a;
-	int				sign;
+	size_t	i;
+	size_t	a;
+	int	sign;
 
 	i = 0;
 	a = 0;
 	sign = 1;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
-			|| str[i] == '\f' || str[i] == '\r' || str[i] == '\v')
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' ||
+		str[i] == '\f' || str[i] == '\r' || str[i] == '\v')
 		i++;
 	if (str[i] == '+' || str[i] == '-')
 	{
@@ -41,11 +44,11 @@ int			ft_atoi(const char *str)
 	}
 	while (str[i] != '\0')
 	{
-		if (str[i] > 47 && str[i] < 58)
+		if (ft_isdigit(str[i]))
 			a = (a * 10) + (str[i] - 48);
 		else
 			break ;
 		i++;
 	}
-	return (long_verif(a, sign));
+	return (int_verif(a, sign));
 }

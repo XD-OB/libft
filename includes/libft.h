@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ishaimou <ishaimou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obelouch <obelouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 01:07:21 by obelouch          #+#    #+#             */
-/*   Updated: 2020/01/22 06:23:25 by obelouch         ###   ########.fr       */
+/*   Updated: 2020/01/30 06:34:34 by obelouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <limits.h>
 # include "structs.h"
 # include "ft_printf.h"
+
+# define ABS(x) (x < 0) ? -x : x
+# define FREE(x) free(x);x=NULL
 # define BUFF_SIZE 1000
 # define HASH_C 2
 
@@ -165,6 +168,7 @@ t_chr				*gnl_save_chr(int fd);
 **	PRINT/READ:			-----------------------------------------------------
 */
 
+int					gnl(const int fd, char **line);
 int					get_next_line(const int fd, char **line);
 void				ft_printhex(int n);
 void				ft_putchar(char c);
@@ -180,20 +184,29 @@ void				ft_putnbr_fd(int n, int fd);
 ** CONVERS INT/STR :	-----------------------------------------------------
 */
 
-char				*ft_itoa(long long int n);
-char				*ft_ltoa(long int n);
-char				*ft_lltoa(long long int n);
-char				*ft_itoa_base(long long int val, int base);
-char				*ft_ulltoa_base(unsigned long long val, int base);
-char				*ft_utoa(size_t n);
-char				*ft_ultoa(unsigned long int n);
-char				*ft_ulltoa(unsigned long long int n);
-char				*ft_utoa_base(size_t val, int base);
-int					ft_atoibase(char *str, char *base_from);
-int					ft_atoi(const char *str);
+int				ft_atoi(const char *str);
 long				ft_atol(const char *str);
+unsigned int			ft_atou(const char *str);
+size_t				ft_atoz(const char *str);
 long				ft_atol_hex(char *str);
-char				*ft_poslltoa(long long int n);
+int				ft_atoi_base(char *str, char *base);
+long				ft_atol_base(char *str, char *base);
+size_t				ft_atoz_base(char *str, char *base);
+char				*ft_itoa(int nbr);
+char				*ft_ltoa(long nbr);
+char				*ft_ztoa(size_t nbr);
+char				*ft_lltoa(long long nbr);
+char				*ft_utoa(unsigned int nbr);
+char				*ft_ultoa(unsigned long nbr);
+char				*ft_ulltoa(unsigned long long nbr);
+char				*ft_itoa_base(int nbr, int base);
+char				*ft_ltoa_base(long nbr, int base);
+char				*ft_ztoa_base(size_t nbr, int base);
+char				*ft_lltoa_base(long long nbr, int base);
+char				*ft_utoa_base(unsigned int nbr, int base);
+char				*ft_ultoa_base(unsigned long nbr, int base);
+char				*ft_ulltoa_base(unsigned long long nbr, int base);
+char				*ft_poslltoa(long long n);
 
 /*
 **	STRING ARRAY :		-----------------------------------------------------
@@ -209,6 +222,7 @@ char				*tabstr_njoin(char **tab, int start, int end, char *sep);
 char				**tabstr_new(size_t len);
 char				**tabstr_copy(char **tab);
 char				**tabstr_ncopy(char **tab, int start, int end);
+void				tabstr_rmblank(char **tab);
 
 /*
 **		INT ARRAY:      -----------------------------------------------------
@@ -310,6 +324,10 @@ int					ft_max(int a, int b);
 int					ft_min(int a, int b);
 int					ft_sqrt(int nb);
 int					ft_prime(int nb);
-void				ft_epurstr(char **str);
+int					ft_ends_with(char *str, char *word);
+char				**ft_strsplit_char(char *str, char c);
+char				*ft_strepur(char *str);
+char				*ft_strrmblank(char *str);
+void				ft_rmblankstr(char **str);
 
 #endif

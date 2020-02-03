@@ -12,27 +12,31 @@
 
 #include "libft.h"
 
-char		*ft_utoa_base(size_t val, int base)
+static size_t	len_res(unsigned int nbr, int base)
 {
-	size_t	nb;
-	int		size;
-	char	*res;
+	size_t	len;
 
-	size = 1;
-	nb = val;
-	while (nb /= base)
-		size++;
-	if (!(res = (char*)malloc(sizeof(char) * (size + 1))))
+	len = 1;
+	while (nbr /= base)
+		len++;
+	return (len);
+}
+
+char		*ft_utoa_base(unsigned int nbr, int base)
+{
+	size_t		len;
+	char		*res;
+
+	len = len_res(nbr, base);
+	if (!(res = ft_strnew(len)))
 		return (NULL);
-	res[size] = '\0';
-	nb = val;
-	while (size-- > 0)
+	while (len-- > 0)
 	{
-		if (nb % base < 10)
-			res[size] = (nb % base) + '0';
+		if (nbr % base < 10)
+			res[len] = (nbr % base) + '0';
 		else
-			res[size] = (nb % base) + 'A' - 10;
-		nb /= base;
+			res[len] = (nbr % base) + 'A' - 10;
+		nbr /= base;
 	}
 	return (res);
 }

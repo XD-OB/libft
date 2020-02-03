@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi_base.c                                     :+:      :+:    :+:   */
+/*   ft_atoz_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ishaimou <ilyass.sh@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -26,11 +26,11 @@ static int	ft_get_val(char c, char *base)
 	return (-1);
 }
 
-int		ft_atoi_base(char *str, char *base_from)
+size_t		ft_atoz_base(char *str, char *base_from)
 {
-	int	nbr;
 	int	n;
 	size_t	i;
+	size_t	nbr;
 	size_t	power;
 	size_t	base_len;
 

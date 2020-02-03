@@ -1,6 +1,6 @@
 #include "libft.h"
 
-static size_t		len_res(unsigned int	nbr)
+static size_t		len_res(size_t nbr)
 {
 	size_t		len;
 
@@ -10,7 +10,7 @@ static size_t		len_res(unsigned int	nbr)
 	return (len);
 }
 
-char			*ft_utoa(unsigned int	nbr)
+char			*ft_ztoa(size_t nbr)
 {
 	char		*res;
 	size_t		len;

@@ -12,45 +12,30 @@
 
 #include "libft.h"
 
-static int				affect_sign(long long int val)
+char			*ft_itoa_base(int nbr, int base)
 {
-	if (val < 0)
-		return (1);
-	return (0);
-}
+	unsigned int	tmp;
+	size_t		len;
+	size_t		sign;
+	char		*res;
 
-static long long int	affect_nb(long long int val)
-{
-	if (val < 0)
-		return (-(long long int)val);
-	return ((long long int)val);
-}
-
-char					*ft_itoa_base(long long int val, int base)
-{
-	long long int		nb;
-	int					size;
-	int					sign;
-	char				*res;
-
-	sign = affect_sign(val);
-	size = affect_sign(val) + 1;
-	nb = affect_nb(val);
-	while (nb /= base)
-		size++;
-	if (!(res = (char*)malloc(sizeof(char) * (size + 1))))
+	sign = (nbr < 0) ? 1 : 0;
+	len = sign + 1;
+	tmp = ABS(nbr);
+	while (nbr /= base)
+		len++;
+	if (!(res = ft_strnew(len)))
 		return (NULL);
-	res[size] = '\0';
-	nb = affect_nb(val);
+	tmp = ABS(nbr);
 	if (sign)
 		res[0] = '-';
-	while (size-- > sign)
+	while (len-- > sign)
 	{
-		if (nb % base < 10)
-			res[size] = (nb % base) + '0';
+		if (tmp % base < 10)
+			res[len] = (tmp % base) + '0';
 		else
-			res[size] = (nb % base) + 'A' - 10;
-		nb /= base;
+			res[len] = (tmp % base) + 'A' - 10;
+		tmp /= base;
 	}
 	return (res);
 }

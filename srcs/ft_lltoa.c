@@ -12,54 +12,26 @@
 
 #include "libft.h"
 
-static long long int	nbr_val(long long int nbr)
+char				*ft_lltoa(long long nbr)
 {
-	if (nbr < 0)
-		return (-nbr);
-	return (nbr);
-}
+	unsigned long long	tmp;
+	size_t			len;
+	size_t			sign;
+	char			*res;
 
-static int				sign_val(long long int nbr)
-{
-	if (nbr < 0)
-		return (1);
-	return (0);
-}
-
-static int				size_val(long long int nbr)
-{
-	if (nbr < 0)
-	{
-		if (nbr == -9223372036854775807)
-			return (-1);
-		return (2);
-	}
-	return (1);
-}
-
-char					*ft_lltoa(long long int nbr)
-{
-	char				*res;
-	long long int		tmp;
-	int					size;
-	int					sign;
-
-	size = size_val(nbr);
-	sign = sign_val(nbr);
-	if (sign == -1)
-		return (ft_strdup("-9223372036854775807"));
-	tmp = nbr_val(nbr);
+	sign = (nbr < 0) ? 1 : 0;
+	len = sign + 1;
+	tmp = ABS(nbr);
 	while (tmp /= 10)
-		size++;
-	if (!(res = (char*)malloc(sizeof(char) * (size + 1))))
+		len++;
+	if (!(res = ft_strnew(len)))
 		return (res);
-	res[size] = '\0';
 	if (sign)
 		res[0] = '-';
-	tmp = nbr_val(nbr);
-	while (size-- > sign)
+	tmp = ABS(nbr);
+	while (len-- > sign)
 	{
-		res[size] = (tmp % 10) + 48;
+		res[len] = (tmp % 10) + 48;
 		tmp /= 10;
 	}
 	return (res);
